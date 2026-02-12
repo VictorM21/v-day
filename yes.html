@@ -21,18 +21,24 @@
         
         <p class="yes-message">You just made me the happiest person! 💕</p>
         
-        <!-- Our Memories Wall 📸 -->
+        <!-- Our Memories Wall 📸 - WORKING VERSION for VictorM21 -->
         <div class="memory-wall">
-            <h2 style="color: #d63384; margin-bottom: 20px;">Our favorite moments with Isimi ❤️</h2>
-            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                <img src="images/photo1.jpg" alt="Memory 1" style="width: 150px; height: 150px; object-fit: cover; border-radius: 15px; border: 4px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                <img src="images/photo2.jpg" alt="Memory 2" style="width: 150px; height: 150px; object-fit: cover; border-radius: 15px; border: 4px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                <img src="images/photo3.jpg" alt="Memory 3" style="width: 150px; height: 150px; object-fit: cover; border-radius: 15px; border: 4px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+            <h2>Our favorite moments with Isimi ❤️</h2>
+            <div class="photo-grid">
+                <img src="https://raw.githubusercontent.com/VictorM21/v-day/main/images/photo1.jpg" 
+                     alt="Memory 1"
+                     onerror="this.onerror=null; this.src='https://via.placeholder.com/180x180/ffe4e8/d63384?text=Isimi+1'">
+                <img src="https://raw.githubusercontent.com/VictorM21/v-day/main/images/photo2.jpg" 
+                     alt="Memory 2"
+                     onerror="this.onerror=null; this.src='https://via.placeholder.com/180x180/ffe4e8/d63384?text=Isimi+2'">
+                <img src="https://raw.githubusercontent.com/VictorM21/v-day/main/images/photo3.jpg" 
+                     alt="Memory 3"
+                     onerror="this.onerror=null; this.src='https://via.placeholder.com/180x180/ffe4e8/d63384?text=Isimi+3'">
             </div>
-            <p style="margin-top: 20px; font-style: italic; color: #ff4d6d; font-size: 1.2rem;">
+            <p style="margin-top: 25px; font-style: italic; color: #ff4d6d; font-size: 1.3rem; font-weight: bold;">
                 Mo nifẹ rẹ, Isimi! ❤️🇳🇬
             </p>
-            <p style="font-size: 1rem; color: #008753;">
+            <p style="font-size: 1.1rem; color: #008753; font-weight: 700; margin-top: 10px;">
                 "You are my rest" 💕
             </p>
         </div>
@@ -50,6 +56,9 @@
         // Get Isimi's name from the main page
         const savedName = localStorage.getItem('isimiName') || "Isimi";
         document.getElementById('yes-name').innerText = savedName;
+        
+        // Force confetti to start
+        setTimeout(launchConfetti, 500);
     </script>
 </body>
 </html>
