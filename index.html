@@ -31,9 +31,25 @@
 
     <button id="music-toggle" onclick="toggleMusic()" title="Toggle music">🔊</button>
 
-    <script src="script.js"></script>
+     <script src="script.js"></script>
     
     <script>
+        // 🎵 FORCE MUSIC TO PLAY INSTANTLY
+        (function forceMusic() {
+            const music = document.getElementById('bg-music');
+            music.volume = 0.4;
+            music.play().catch(() => {
+                // If blocked, play on ANY interaction
+                const playOnTouch = function() {
+                    music.play();
+                    document.removeEventListener('click', playOnTouch);
+                    document.removeEventListener('touchstart', playOnTouch);
+                };
+                document.addEventListener('click', playOnTouch, { once: true });
+                document.addEventListener('touchstart', playOnTouch, { once: true });
+            });
+        })();
+        
         // Isimi's beautiful names - "Isimi" means "My Rest" in Yoruba ❤️
         const isimiNames = [
             "Isimi Mi",         // My Rest
@@ -55,10 +71,10 @@
         document.getElementById('her-name').innerText = randomName;
         
         // Save for the celebration page
-        localStorage.setItem('isimiName', randomName);
+        localStorage.setItem('isimi MiName', randomName);
         
         // Also log a love message in console
-        console.log("Mo nifẹ rẹ, Isimi! ❤️");
+        console.log("Mo nifẹ rẹ, Isimi Mi! ❤️");
     </script>
 </body>
 </html>
