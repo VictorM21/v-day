@@ -9,27 +9,32 @@ const gifStages = [
     "https://media1.tenor.com/m/uDugCXK4vI4AAAAC/chiikawa-hachiware.gif"  // 7 crying runaway
 ]
 
+// Personal messages for Isimi - with Yoruba love! ❤️🇳🇬
 const noMessages = [
-    "No",
-    "Are you positive? 🤔",
-    "Pookie please... 🥺",
-    "If you say no, I will be really sad...",
-    "I will be very sad... 😢",
-    "Please??? 💔",
-    "Don't do this to me...",
-    "Last chance! 😭",
-    "You can't catch me anyway 😜"
+    "Are you sure, Isimi? 🥺",
+    "Mo nifẹ rẹ o! ❤️",           // I love you
+    "But I added our song! 🎵",
+    "Jowo, ronu daradara! 🙏",    // Please, think well
+    "Isimi, you are my rest 💕",  // Meaning of her name
+    "What if I bring you food? 🍜",
+    "O l'ewa ju! ✨",             // You're beautiful
+    "But I coded this for you! 💻",
+    "Okan mi 💘",                 // My heart
+    "Oluwadarasimi o! 😭",       // God is good to me
+    "Last chance, Ife mi! 💔",
+    "I'll let you pick the movie! 🎬",
+    "Okay this is the LAST last chance! 😂"
 ]
 
 const yesTeasePokes = [
     "try saying no first... I bet you want to know what happens 😏",
     "go on, hit no... just once 👀",
     "you're missing out 😈",
-    "click no, I dare you 😏"
+    "click no, I dare you 😏",
+    "Isimi, just click it once! 😂"
 ]
 
 let yesTeasedCount = 0
-
 let noClickCount = 0
 let runawayEnabled = false
 let musicPlaying = true
@@ -39,8 +44,14 @@ const yesBtn = document.getElementById('yes-btn')
 const noBtn = document.getElementById('no-btn')
 const music = document.getElementById('bg-music')
 
+// Simple audio setup - no more muted issues!
 music.volume = 0.3
-music.play().catch(() => {})
+music.play().catch(() => {
+    // Fallback: play on first click
+    document.addEventListener('click', () => {
+        music.play().catch(() => {})
+    }, { once: true })
+})
 
 function toggleMusic() {
     if (musicPlaying) {
@@ -48,7 +59,6 @@ function toggleMusic() {
         musicPlaying = false
         document.getElementById('music-toggle').textContent = '🔇'
     } else {
-        music.muted = false
         music.play()
         musicPlaying = true
         document.getElementById('music-toggle').textContent = '🔊'
@@ -76,32 +86,33 @@ function showTeaseMessage(msg) {
 
 function handleNoClick() {
     noClickCount++
-
-    // Cycle through guilt-trip messages
+    
+    // Cycle through personal messages
     const msgIndex = Math.min(noClickCount, noMessages.length - 1)
     noBtn.textContent = noMessages[msgIndex]
-
+    
     // Grow the Yes button bigger each time
     const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize)
     yesBtn.style.fontSize = `${currentSize * 1.35}px`
     const padY = Math.min(18 + noClickCount * 5, 60)
     const padX = Math.min(45 + noClickCount * 10, 120)
     yesBtn.style.padding = `${padY}px ${padX}px`
-
+    
     // Shrink No button to contrast
     if (noClickCount >= 2) {
         const noSize = parseFloat(window.getComputedStyle(noBtn).fontSize)
         noBtn.style.fontSize = `${Math.max(noSize * 0.85, 10)}px`
     }
-
+    
     // Swap cat GIF through stages
     const gifIndex = Math.min(noClickCount, gifStages.length - 1)
     swapGif(gifStages[gifIndex])
-
+    
     // Runaway starts at click 5
     if (noClickCount >= 5 && !runawayEnabled) {
         enableRunaway()
         runawayEnabled = true
+        showTeaseMessage("Okay you asked for it! Try catching me now! 🏃‍♂️")
     }
 }
 
@@ -124,10 +135,8 @@ function runAway() {
     const btnH = noBtn.offsetHeight
     const maxX = window.innerWidth - btnW - margin
     const maxY = window.innerHeight - btnH - margin
-
     const randomX = Math.random() * maxX + margin / 2
     const randomY = Math.random() * maxY + margin / 2
-
     noBtn.style.position = 'fixed'
     noBtn.style.left = `${randomX}px`
     noBtn.style.top = `${randomY}px`
