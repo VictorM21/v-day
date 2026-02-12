@@ -12,7 +12,7 @@
     <div class="hearts-bg"></div>
 
     <div class="container">
-        <h1>Will you be my Valentine? 💕</h1>
+        <h1 id="valentine-question">Will you be my Valentine, <span id="her-name"></span>? 💕</h1>
 
         <div class="gif-container">
             <img id="cat-gif" src="https://media.tenor.com/EBV7OT7ACfwAAAAj/u-u-qua-qua-u-quaa.gif" alt="cute character">
@@ -25,12 +25,40 @@
         <div id="tease-toast"></div>
     </div>
 
-   <audio id="bg-music" loop autoplay>
-    <source src="music/Mannywellz-Looking-For-God.mp3" type="audio/mpeg">
-</audio>
+    <audio id="bg-music" loop autoplay>
+        <source src="music/Mannywellz-Looking-For-God.mp3" type="audio/mpeg">
+    </audio>
 
     <button id="music-toggle" onclick="toggleMusic()" title="Toggle music">🔊</button>
 
     <script src="script.js"></script>
+    
+    <script>
+        // Isimi's beautiful names - "Isimi" means "My Rest" in Yoruba ❤️
+        const isimiNames = [
+            "Isimi Mi",         // My Rest
+            "Simileoluwa",     // Full name
+            "Simi",            // Short form
+            "Ife mi",          // My love
+            "Oluwabunmi",      // Gift of God
+            "Ore ofe mi",      // My special friend
+            "Mommy",           // ❤️
+            "Princess",
+            "Okan mi",         // My heart
+            "Ayomide",         // My joy has come
+            "Oluwadarasimi",   // God is good to me
+            "Temitope"         // Yours to give thanks
+        ];
+        
+        // Pick a random name each time
+        const randomName = isimiNames[Math.floor(Math.random() * isimiNames.length)];
+        document.getElementById('her-name').innerText = randomName;
+        
+        // Save for the celebration page
+        localStorage.setItem('isimiName', randomName);
+        
+        // Also log a love message in console
+        console.log("Mo nifẹ rẹ, Isimi! ❤️");
+    </script>
 </body>
 </html>
