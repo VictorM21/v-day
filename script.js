@@ -45,51 +45,69 @@ const noBtn = document.getElementById('no-btn')
 const music = document.getElementById('bg-music')
 const musicToggle = document.getElementById('music-toggle')
 
-// ===== FIXED: MUSIC SETUP WITH STATE TRACKING =====
-music.volume = 0.4
+// ===== MOBILE-OPTIMIZED MUSIC SETUP =====
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-// Try to play automatically
-music.play().then(() => {
-    musicPlaying = true
-    if (musicToggle) musicToggle.textContent = '🔊'
-}).catch(() => {
-    musicPlaying = false
-    if (musicToggle) musicToggle.textContent = '🔇'
-    // Play on first click anywhere
-    document.addEventListener('click', function playOnFirstClick() {
+if (isMobile) {
+    // Mobile: Start muted, unmute on first interaction
+    music.muted = true;
+    music.volume = 0.4;
+    music.play().catch(() => {});
+    musicPlaying = false;
+    musicToggle.textContent = '🔇';
+    
+    // Unmute on first click/touch
+    function enableAudio() {
+        music.muted = false;
         music.play().then(() => {
-            musicPlaying = true
-            if (musicToggle) musicToggle.textContent = '🔊'
-        }).catch(() => {})
-        document.removeEventListener('click', playOnFirstClick)
-    }, { once: true })
-})
+            musicPlaying = true;
+            musicToggle.textContent = '🔊';
+        }).catch(() => {});
+        document.removeEventListener('click', enableAudio);
+        document.removeEventListener('touchstart', enableAudio);
+    }
+    
+    document.addEventListener('click', enableAudio, { once: true });
+    document.addEventListener('touchstart', enableAudio, { once: true });
+} else {
+    // Desktop: Try normal autoplay
+    music.muted = false;
+    music.volume = 0.4;
+    music.play().then(() => {
+        musicPlaying = true;
+        musicToggle.textContent = '🔊';
+    }).catch(() => {
+        musicPlaying = false;
+        musicToggle.textContent = '🔇';
+        // Play on first click
+        document.addEventListener('click', function playOnFirstClick() {
+            music.play().then(() => {
+                musicPlaying = true;
+                musicToggle.textContent = '🔊';
+            }).catch(() => {});
+            document.removeEventListener('click', playOnFirstClick);
+        }, { once: true });
+    });
+}
 
-// ===== FIXED: TOGGLE MUSIC FUNCTION =====
+// ===== TOGGLE MUSIC FUNCTION =====
 window.toggleMusic = function() {
     if (music.paused) {
         music.play().then(() => {
-            musicPlaying = true
-            musicToggle.textContent = '🔊'
+            musicPlaying = true;
+            musicToggle.textContent = '🔊';
         }).catch(() => {
-            alert('🎵 Click anywhere on the page first to enable music!')
-        })
+            alert('🎵 Click anywhere on the page first to enable music!');
+        });
     } else {
-        music.pause()
-        musicPlaying = false
-        musicToggle.textContent = '🔇'
+        music.pause();
+        musicPlaying = false;
+        musicToggle.textContent = '🔇';
     }
 }
 
-// ===== ADDED: SAVE MUSIC STATE BEFORE LEAVING =====
-window.addEventListener('beforeunload', function() {
-    localStorage.setItem('musicTime', music.currentTime);
-    localStorage.setItem('musicPlaying', musicPlaying);
-});
-
 function handleYesClick() {
     if (!runawayEnabled) {
-        // Tease her to try No first
         const msg = yesTeasePokes[Math.min(yesTeasedCount, yesTeasePokes.length - 1)]
         yesTeasedCount++
         showTeaseMessage(msg)
@@ -109,28 +127,23 @@ function showTeaseMessage(msg) {
 function handleNoClick() {
     noClickCount++
     
-    // Cycle through personal messages
     const msgIndex = Math.min(noClickCount, noMessages.length - 1)
     noBtn.textContent = noMessages[msgIndex]
     
-    // Grow the Yes button bigger each time
     const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize)
     yesBtn.style.fontSize = `${currentSize * 1.35}px`
     const padY = Math.min(18 + noClickCount * 5, 60)
     const padX = Math.min(45 + noClickCount * 10, 120)
     yesBtn.style.padding = `${padY}px ${padX}px`
     
-    // Shrink No button to contrast
     if (noClickCount >= 2) {
         const noSize = parseFloat(window.getComputedStyle(noBtn).fontSize)
         noBtn.style.fontSize = `${Math.max(noSize * 0.85, 10)}px`
     }
     
-    // Swap cat GIF through stages
     const gifIndex = Math.min(noClickCount, gifStages.length - 1)
     swapGif(gifStages[gifIndex])
     
-    // Runaway starts at click 5
     if (noClickCount >= 5 && !runawayEnabled) {
         enableRunaway()
         runawayEnabled = true
