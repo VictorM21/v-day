@@ -37,33 +37,55 @@ const yesTeasePokes = [
 let yesTeasedCount = 0
 let noClickCount = 0
 let runawayEnabled = false
-let musicPlaying = true
+let musicPlaying = false
 
 const catGif = document.getElementById('cat-gif')
 const yesBtn = document.getElementById('yes-btn')
 const noBtn = document.getElementById('no-btn')
 const music = document.getElementById('bg-music')
+const musicToggle = document.getElementById('music-toggle')
 
-// Simple audio setup - no more muted issues!
-music.volume = 0.3
-music.play().catch(() => {
-    // Fallback: play on first click
-    document.addEventListener('click', () => {
-        music.play().catch(() => {})
+// ===== FIXED: MUSIC SETUP WITH STATE TRACKING =====
+music.volume = 0.4
+
+// Try to play automatically
+music.play().then(() => {
+    musicPlaying = true
+    if (musicToggle) musicToggle.textContent = '🔊'
+}).catch(() => {
+    musicPlaying = false
+    if (musicToggle) musicToggle.textContent = '🔇'
+    // Play on first click anywhere
+    document.addEventListener('click', function playOnFirstClick() {
+        music.play().then(() => {
+            musicPlaying = true
+            if (musicToggle) musicToggle.textContent = '🔊'
+        }).catch(() => {})
+        document.removeEventListener('click', playOnFirstClick)
     }, { once: true })
 })
 
-function toggleMusic() {
-    if (musicPlaying) {
+// ===== FIXED: TOGGLE MUSIC FUNCTION =====
+window.toggleMusic = function() {
+    if (music.paused) {
+        music.play().then(() => {
+            musicPlaying = true
+            musicToggle.textContent = '🔊'
+        }).catch(() => {
+            alert('🎵 Click anywhere on the page first to enable music!')
+        })
+    } else {
         music.pause()
         musicPlaying = false
-        document.getElementById('music-toggle').textContent = '🔇'
-    } else {
-        music.play()
-        musicPlaying = true
-        document.getElementById('music-toggle').textContent = '🔊'
+        musicToggle.textContent = '🔇'
     }
 }
+
+// ===== ADDED: SAVE MUSIC STATE BEFORE LEAVING =====
+window.addEventListener('beforeunload', function() {
+    localStorage.setItem('musicTime', music.currentTime);
+    localStorage.setItem('musicPlaying', musicPlaying);
+});
 
 function handleYesClick() {
     if (!runawayEnabled) {
