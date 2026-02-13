@@ -31,36 +31,35 @@
 
     <button id="music-toggle" onclick="toggleMusic()" title="Toggle music">🔊</button>
 
+    <!-- Mobile tap prompt - playful and fun! -->
+    <p id="mobile-tap-prompt" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.8rem; color: white; text-shadow: 2px 2px 10px #d63384; background: rgba(214,51,132,0.9); padding: 20px 40px; border-radius: 60px; z-index: 9999; animation: pulse 1.5s infinite; display: none; white-space: nowrap; box-shadow: 0 10px 30px rgba(214,51,132,0.5); backdrop-filter: blur(5px);">
+        ✨ Tap anywhere for a surprise! ✨
+    </p>
+
+    <style>
+        @keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
+            100% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
+        }
+    </style>
+
     <script src="script.js"></script>
 
-    <!-- Mobile tap prompt - playful and fun! -->
-<p id="mobile-tap-prompt" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.8rem; color: white; text-shadow: 2px 2px 10px #d63384; background: rgba(214,51,132,0.9); padding: 20px 40px; border-radius: 60px; z-index: 9999; animation: pulse 1.5s infinite; display: none; white-space: nowrap; box-shadow: 0 10px 30px rgba(214,51,132,0.5); backdrop-filter: blur(5px);">
-    ✨ Tap anywhere for a surprise! ✨
-</p>
-
-<style>
-    @keyframes pulse {
-        0% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
-        100% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
-    }
-</style>
-
-<script>
-    // Show tap prompt ONLY on mobile
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if (isMobile) {
-        document.getElementById('mobile-tap-prompt').style.display = 'block';
-        
-        // Hide it on first tap
-        document.addEventListener('touchstart', function() {
-            document.getElementById('mobile-tap-prompt').style.display = 'none';
-        }, { once: true });
-    }
-</script>
+    <script>
+        // Show tap prompt ONLY on mobile
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        if (isMobile) {
+            document.getElementById('mobile-tap-prompt').style.display = 'block';
+            
+            // Hide it on first tap
+            document.addEventListener('touchstart', function() {
+                document.getElementById('mobile-tap-prompt').style.display = 'none';
+            }, { once: true });
+        }
+    </script>
     
     <script>
         // ===== MUSIC STATE SAVING =====
-        // Save music position and state before leaving page
         window.addEventListener('beforeunload', function() {
             const music = document.getElementById('bg-music');
             localStorage.setItem('musicTime', music.currentTime);
@@ -68,7 +67,6 @@
         });
 
         // ===== ISIMI'S BEAUTIFUL NAMES =====
-        // "Isimi Mi" means "My Rest" in Yoruba ❤️
         const isimiNames = [
             "Isimi Mi",         // My Rest
             "Simileoluwa",     // Full name
@@ -84,14 +82,9 @@
             "Oluwafunmilayo"   // God gives me joy ✨
         ];
         
-        // Pick a random name each time
         const randomName = isimiNames[Math.floor(Math.random() * isimiNames.length)];
         document.getElementById('her-name').innerText = randomName;
-        
-        // Save for the celebration page - FIXED: consistent key name (no spaces!)
         localStorage.setItem('isimiName', randomName);
-        
-        // Log a love message in console
         console.log("Mo nifẹ rẹ, " + randomName + "! ❤️");
     </script>
 </body>
