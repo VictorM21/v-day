@@ -7,6 +7,9 @@ window.addEventListener('load', () => {
     const music = document.getElementById('bg-music')
     const musicToggle = document.getElementById('music-toggle')
     
+    // Check if mobile
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+    
     // Set volume
     music.volume = 0.4
     
@@ -19,29 +22,44 @@ window.addEventListener('load', () => {
         music.currentTime = parseFloat(savedTime)
     }
     
-    // Resume playing if it was playing on main page
-    if (wasPlaying) {
-        music.play().then(() => {
-            musicPlaying = true
-            musicToggle.textContent = '🔊'
-        }).catch(() => {
-            musicPlaying = false
-            musicToggle.textContent = '🔇'
-            // Play on first click
-            document.addEventListener('click', function playOnClick() {
+    if (isMobile) {
+        // Mobile: Start muted, unmute on interaction
+        music.muted = true
+        music.play().catch(() => {})
+        musicToggle.textContent = '🔇'
+        
+        // If it was playing on main page, unmute on first touch
+        if (wasPlaying) {
+            function enableAudio() {
+                music.muted = false
                 music.play().then(() => {
                     musicPlaying = true
                     musicToggle.textContent = '🔊'
-                })
-                document.removeEventListener('click', playOnClick)
-            }, { once: true })
-        })
+                }).catch(() => {})
+                document.removeEventListener('click', enableAudio)
+                document.removeEventListener('touchstart', enableAudio)
+            }
+            document.addEventListener('click', enableAudio, { once: true })
+            document.addEventListener('touchstart', enableAudio, { once: true })
+        }
     } else {
-        musicPlaying = false
-        musicToggle.textContent = '🔇'
+        // Desktop: Normal restoration
+        music.muted = false
+        if (wasPlaying) {
+            music.play().then(() => {
+                musicPlaying = true
+                musicToggle.textContent = '🔊'
+            }).catch(() => {
+                musicPlaying = false
+                musicToggle.textContent = '🔇'
+            })
+        } else {
+            musicPlaying = false
+            musicToggle.textContent = '🔇'
+        }
     }
     
-    // Clear saved state so it doesn't interfere with future visits
+    // Clear saved state
     localStorage.removeItem('musicTime')
     localStorage.removeItem('musicPlaying')
 })
@@ -51,7 +69,6 @@ function launchConfetti() {
     const duration = 6000
     const end = Date.now() + duration
 
-    // Initial big burst
     confetti({
         particleCount: 150,
         spread: 100,
@@ -59,7 +76,6 @@ function launchConfetti() {
         colors
     })
 
-    // Continuous side cannons
     const interval = setInterval(() => {
         if (Date.now() > end) {
             clearInterval(interval)
@@ -84,7 +100,7 @@ function launchConfetti() {
     }, 300)
 }
 
-// ===== FIXED: TOGGLE MUSIC FUNCTION =====
+// ===== TOGGLE MUSIC FUNCTION =====
 window.toggleMusic = function() {
     const music = document.getElementById('bg-music')
     const musicToggle = document.getElementById('music-toggle')
