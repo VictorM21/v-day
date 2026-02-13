@@ -31,27 +31,19 @@
 
     <button id="music-toggle" onclick="toggleMusic()" title="Toggle music">🔊</button>
 
-     <script src="script.js"></script>
+    <script src="script.js"></script>
     
     <script>
-    // ===== FIX: Make toggleMusic globally accessible =====
-    window.toggleMusic = function() {
-        const music = document.getElementById('bg-music');
-        const musicToggle = document.getElementById('music-toggle');
-        
-        if (music.paused) {
-            music.play().then(() => {
-                musicToggle.textContent = '🔊';
-            }).catch(() => {
-                alert('🎵 Click the page first to enable music!');
-            });
-        } else {
-            music.pause();
-            musicToggle.textContent = '🔇';
-        }
-    };
-        
-        // Isimi's beautiful names - "Isimi" means "My Rest" in Yoruba ❤️
+        // ===== MUSIC STATE SAVING =====
+        // Save music position and state before leaving page
+        window.addEventListener('beforeunload', function() {
+            const music = document.getElementById('bg-music');
+            localStorage.setItem('musicTime', music.currentTime);
+            localStorage.setItem('musicPlaying', !music.paused);
+        });
+
+        // ===== ISIMI'S BEAUTIFUL NAMES =====
+        // "Isimi Mi" means "My Rest" in Yoruba ❤️
         const isimiNames = [
             "Isimi Mi",         // My Rest
             "Simileoluwa",     // Full name
@@ -71,11 +63,11 @@
         const randomName = isimiNames[Math.floor(Math.random() * isimiNames.length)];
         document.getElementById('her-name').innerText = randomName;
         
-        // Save for the celebration page
-        localStorage.setItem('isimi MiName', randomName);
+        // Save for the celebration page - FIXED: consistent key name (no spaces!)
+        localStorage.setItem('isimiName', randomName);
         
-        // Also log a love message in console
-        console.log("Mo nifẹ rẹ, Isimi Mi! ❤️");
+        // Log a love message in console
+        console.log("Mo nifẹ rẹ, " + randomName + "! ❤️");
     </script>
 </body>
 </html>
