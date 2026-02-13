@@ -2,10 +2,48 @@ let musicPlaying = false
 
 window.addEventListener('load', () => {
     launchConfetti()
-
-    // Autoplay music (works since user clicked Yes to get here)
-        musicPlaying = true
-    document.getElementById('music-toggle').textContent = '🔊'
+    
+    // ===== RESTORE MUSIC STATE FROM MAIN PAGE =====
+    const music = document.getElementById('bg-music')
+    const musicToggle = document.getElementById('music-toggle')
+    
+    // Set volume
+    music.volume = 0.4
+    
+    // Get saved time and playing state from main page
+    const savedTime = localStorage.getItem('musicTime')
+    const wasPlaying = localStorage.getItem('musicPlaying') === 'true'
+    
+    // Restore position if available
+    if (savedTime) {
+        music.currentTime = parseFloat(savedTime)
+    }
+    
+    // Resume playing if it was playing on main page
+    if (wasPlaying) {
+        music.play().then(() => {
+            musicPlaying = true
+            musicToggle.textContent = '🔊'
+        }).catch(() => {
+            musicPlaying = false
+            musicToggle.textContent = '🔇'
+            // Play on first click
+            document.addEventListener('click', function playOnClick() {
+                music.play().then(() => {
+                    musicPlaying = true
+                    musicToggle.textContent = '🔊'
+                })
+                document.removeEventListener('click', playOnClick)
+            }, { once: true })
+        })
+    } else {
+        musicPlaying = false
+        musicToggle.textContent = '🔇'
+    }
+    
+    // Clear saved state so it doesn't interfere with future visits
+    localStorage.removeItem('musicTime')
+    localStorage.removeItem('musicPlaying')
 })
 
 function launchConfetti() {
@@ -46,15 +84,21 @@ function launchConfetti() {
     }, 300)
 }
 
-function toggleMusic() {
+// ===== FIXED: TOGGLE MUSIC FUNCTION =====
+window.toggleMusic = function() {
     const music = document.getElementById('bg-music')
-    if (musicPlaying) {
+    const musicToggle = document.getElementById('music-toggle')
+    
+    if (music.paused) {
+        music.play().then(() => {
+            musicPlaying = true
+            musicToggle.textContent = '🔊'
+        }).catch(() => {
+            alert('🎵 Click the page first to enable music!')
+        })
+    } else {
         music.pause()
         musicPlaying = false
-        document.getElementById('music-toggle').textContent = '🔇'
-    } else {
-        music.play()
-        musicPlaying = true
-        document.getElementById('music-toggle').textContent = '🔊'
+        musicToggle.textContent = '🔇'
     }
 }
