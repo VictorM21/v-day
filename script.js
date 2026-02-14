@@ -45,6 +45,25 @@ const noBtn = document.getElementById('no-btn')
 const music = document.getElementById('bg-music')
 const musicToggle = document.getElementById('music-toggle')
 
+// ===== RANDOM SONG SELECTION - NEW! =====
+const songs = [
+    "music/Mannywellz-Looking-For-God.mp3",
+    "music/Tchella-Ife-In-Love.mp3",
+    "music/Mannywellz-Magic-Take-It-Easy.mp3"
+];
+
+// Pick a random song
+const randomSong = songs[Math.floor(Math.random() * songs.length)];
+
+// Update the audio source
+const source = music.querySelector('source');
+if (source) {
+    source.src = randomSong;
+    music.load(); // Reload with new source
+}
+
+console.log("🎵 Today's song: " + randomSong.split('/').pop());
+
 // ===== MOBILE-OPTIMIZED MUSIC SETUP =====
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
