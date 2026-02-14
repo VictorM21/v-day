@@ -120,7 +120,7 @@ function launchConfetti() {
     }, 300)
 }
 
-// ===== FIXED TOGGLE MUSIC FUNCTION =====
+// ===== TOGGLE MUSIC FUNCTION =====
 window.toggleMusic = function() {
     const music = document.getElementById('bg-music')
     const musicToggle = document.getElementById('music-toggle')
