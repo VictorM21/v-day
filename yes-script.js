@@ -10,6 +10,26 @@ window.addEventListener('load', () => {
     // Check if mobile
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
     
+    // ===== RESTORE THE RANDOM SONG FROM MAIN PAGE =====
+    const selectedSong = localStorage.getItem('selectedSong');
+    const songName = localStorage.getItem('songName');
+    
+    if (selectedSong) {
+        // Clear existing sources
+        while (music.firstChild) {
+            music.removeChild(music.firstChild);
+        }
+        
+        // Create new source with the saved song
+        const source = document.createElement('source');
+        source.src = selectedSong + '?v=' + new Date().getTime();
+        source.type = 'audio/mpeg';
+        music.appendChild(source);
+        music.load();
+        
+        console.log("🎵 Continuing with: " + songName);
+    }
+    
     // Set volume
     music.volume = 0.4
     
@@ -59,7 +79,7 @@ window.addEventListener('load', () => {
         }
     }
     
-    // Clear saved state
+    // Clear saved state (but keep song for next visit)
     localStorage.removeItem('musicTime')
     localStorage.removeItem('musicPlaying')
 })
@@ -100,12 +120,16 @@ function launchConfetti() {
     }, 300)
 }
 
-// ===== TOGGLE MUSIC FUNCTION =====
+// ===== FIXED TOGGLE MUSIC FUNCTION =====
 window.toggleMusic = function() {
     const music = document.getElementById('bg-music')
     const musicToggle = document.getElementById('music-toggle')
     
     if (music.paused) {
+        // If muted, unmute first
+        if (music.muted) {
+            music.muted = false;
+        }
         music.play().then(() => {
             musicPlaying = true
             musicToggle.textContent = '🔊'
