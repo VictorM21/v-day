@@ -45,16 +45,38 @@ const noBtn = document.getElementById('no-btn')
 const music = document.getElementById('bg-music')
 const musicToggle = document.getElementById('music-toggle')
 
-// ===== FIXED: RANDOM SONG SELECTION WITH CACHE BUSTING =====
+// ===== RANDOM SONG SELECTION WITH SONG SAVING =====
 const songs = [
     "music/Mannywellz-Looking-For-God.mp3",
     "music/Tchella-Ife-In-Love.mp3",
     "music/Mannywellz-Magic-Take-It-Easy.mp3"
 ];
 
-// Pick a random song
-const randomIndex = Math.floor(Math.random() * songs.length);
-const selectedSong = songs[randomIndex];
+const songNames = [
+    "Mannywellz - Looking For God",
+    "Tchella - Ife In Love",
+    "Mannywellz - Magic Take It Easy"
+];
+
+// Check if a song was already selected on a previous visit today
+let selectedSong = localStorage.getItem('selectedSong');
+let randomIndex;
+
+if (selectedSong) {
+    // Use the previously selected song
+    randomIndex = parseInt(localStorage.getItem('songIndex'));
+    console.log("🎵 Continuing with previous song: " + songNames[randomIndex]);
+} else {
+    // Pick a new random song
+    randomIndex = Math.floor(Math.random() * songs.length);
+    selectedSong = songs[randomIndex];
+    
+    // Save it for the next page
+    localStorage.setItem('selectedSong', selectedSong);
+    localStorage.setItem('songIndex', randomIndex);
+    localStorage.setItem('songName', songNames[randomIndex]);
+    console.log("🎵 Today's new song: " + songNames[randomIndex]);
+}
 
 // Clear any existing sources
 while (music.firstChild) {
@@ -69,10 +91,6 @@ music.appendChild(source);
 
 // Reload the audio
 music.load();
-
-// Log which song is playing
-const songNames = ["Mannywellz - Looking For God", "Tchella - Ife In Love", "Mannywellz - Magic Take It Easy"];
-console.log("🎵 Today's song: " + songNames[randomIndex]);
 
 // ===== MOBILE-OPTIMIZED MUSIC SETUP =====
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -119,13 +137,18 @@ if (isMobile) {
     });
 }
 
-// ===== TOGGLE MUSIC FUNCTION =====
+// ===== FIXED TOGGLE MUSIC FUNCTION - PROPERLY UNMUTES =====
 window.toggleMusic = function() {
     if (music.paused) {
+        // If muted, unmute first
+        if (music.muted) {
+            music.muted = false;
+        }
         music.play().then(() => {
             musicPlaying = true;
             musicToggle.textContent = '🔊';
-        }).catch(() => {
+        }).catch((error) => {
+            console.log("Playback failed:", error);
             alert('🎵 Click anywhere on the page first to enable music!');
         });
     } else {
