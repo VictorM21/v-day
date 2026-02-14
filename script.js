@@ -1,4 +1,4 @@
-cconst gifStages = [
+const gifStages = [
     "https://media.tenor.com/EBV7OT7ACfwAAAAj/u-u-qua-qua-u-quaa.gif",    // 0 normal
     "https://media1.tenor.com/m/uDugCXK4vI4AAAAd/chiikawa-hachiware.gif",  // 1 confused
     "https://media.tenor.com/f_rkpJbH1s8AAAAj/somsom1012.gif",             // 2 pleading
@@ -7,7 +7,7 @@ cconst gifStages = [
     "https://media.tenor.com/CivArbX7NzQAAAAj/somsom1012.gif",             // 5 devastated
     "https://media.tenor.com/5_tv1HquZlcAAAAj/chiikawa.gif",               // 6 very devastated
     "https://media1.tenor.com/m/uDugCXK4vI4AAAAC/chiikawa-hachiware.gif"  // 7 crying runaway
-]
+];
 
 // Personal messages for Isimi - with Yoruba love! ❤️🇳🇬
 const noMessages = [
@@ -24,7 +24,7 @@ const noMessages = [
     "Last chance, Ife mi! 💔",
     "I'll let you pick the movie! 🎬",
     "Okay this is the LAST last chance! 😂"
-]
+];
 
 const yesTeasePokes = [
     "try saying no first... I bet you want to know what happens 😏",
@@ -32,20 +32,25 @@ const yesTeasePokes = [
     "you're missing out 😈",
     "click no, I dare you 😏",
     "Isimi, just click it once! 😂"
-]
+];
 
-let yesTeasedCount = 0
-let noClickCount = 0
-let runawayEnabled = false
-let musicPlaying = false
+let yesTeasedCount = 0;
+let noClickCount = 0;
+let runawayEnabled = false;
+let musicPlaying = false;
 
-const catGif = document.getElementById('cat-gif')
-const yesBtn = document.getElementById('yes-btn')
-const noBtn = document.getElementById('no-btn')
-const music = document.getElementById('bg-music')
-const musicToggle = document.getElementById('music-toggle')
+const catGif = document.getElementById('cat-gif');
+const yesBtn = document.getElementById('yes-btn');
+const noBtn = document.getElementById('no-btn');
+const music = document.getElementById('bg-music');
+const musicToggle = document.getElementById('music-toggle');
 
-// ===== FIXED: RANDOM SONG SELECTION =====
+// Check if elements exist before proceeding
+if (!catGif || !yesBtn || !noBtn || !music || !musicToggle) {
+    console.error("Required elements not found!");
+}
+
+// ===== RANDOM SONG SELECTION =====
 const songs = [
     "music/Mannywellz-Looking-For-God.mp3",
     "music/Tchella-Ife-In-Love.mp3",
@@ -79,66 +84,74 @@ if (selectedSong) {
 }
 
 // Clear any existing sources and set the new one
-while (music.firstChild) {
-    music.removeChild(music.firstChild);
+if (music) {
+    while (music.firstChild) {
+        music.removeChild(music.firstChild);
+    }
+
+    // Create new source element with cache-busting parameter
+    const source = document.createElement('source');
+    source.src = selectedSong + '?v=' + new Date().getTime(); // Cache buster!
+    source.type = 'audio/mpeg';
+    music.appendChild(source);
+
+    // Reload the audio
+    music.load();
 }
-
-// Create new source element with cache-busting parameter
-const source = document.createElement('source');
-source.src = selectedSong + '?v=' + new Date().getTime(); // Cache buster!
-source.type = 'audio/mpeg';
-music.appendChild(source);
-
-// Reload the audio
-music.load();
 
 // ===== MOBILE-OPTIMIZED MUSIC SETUP =====
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-if (isMobile) {
-    // Mobile: Start muted, unmute on first interaction
-    music.muted = true;
-    music.volume = 0.4;
-    music.play().catch(() => {});
-    musicPlaying = false;
-    musicToggle.textContent = '🔇';
-    
-    // Unmute on first click/touch
-    function enableAudio() {
+if (music) {
+    if (isMobile) {
+        // Mobile: Start muted, unmute on first interaction
+        music.muted = true;
+        music.volume = 0.4;
+        music.play().catch(() => {});
+        musicPlaying = false;
+        if (musicToggle) musicToggle.textContent = '🔇';
+        
+        // Unmute on first click/touch
+        function enableAudio() {
+            if (music) {
+                music.muted = false;
+                music.play().then(() => {
+                    musicPlaying = true;
+                    if (musicToggle) musicToggle.textContent = '🔊';
+                }).catch(() => {});
+            }
+            document.removeEventListener('click', enableAudio);
+            document.removeEventListener('touchstart', enableAudio);
+        }
+        
+        document.addEventListener('click', enableAudio, { once: true });
+        document.addEventListener('touchstart', enableAudio, { once: true });
+    } else {
+        // Desktop: Try normal autoplay
         music.muted = false;
+        music.volume = 0.4;
         music.play().then(() => {
             musicPlaying = true;
-            musicToggle.textContent = '🔊';
-        }).catch(() => {});
-        document.removeEventListener('click', enableAudio);
-        document.removeEventListener('touchstart', enableAudio);
+            if (musicToggle) musicToggle.textContent = '🔊';
+        }).catch(() => {
+            musicPlaying = false;
+            if (musicToggle) musicToggle.textContent = '🔇';
+            // Play on first click
+            document.addEventListener('click', function playOnFirstClick() {
+                music.play().then(() => {
+                    musicPlaying = true;
+                    if (musicToggle) musicToggle.textContent = '🔊';
+                }).catch(() => {});
+                document.removeEventListener('click', playOnFirstClick);
+            }, { once: true });
+        });
     }
-    
-    document.addEventListener('click', enableAudio, { once: true });
-    document.addEventListener('touchstart', enableAudio, { once: true });
-} else {
-    // Desktop: Try normal autoplay
-    music.muted = false;
-    music.volume = 0.4;
-    music.play().then(() => {
-        musicPlaying = true;
-        musicToggle.textContent = '🔊';
-    }).catch(() => {
-        musicPlaying = false;
-        musicToggle.textContent = '🔇';
-        // Play on first click
-        document.addEventListener('click', function playOnFirstClick() {
-            music.play().then(() => {
-                musicPlaying = true;
-                musicToggle.textContent = '🔊';
-            }).catch(() => {});
-            document.removeEventListener('click', playOnFirstClick);
-        }, { once: true });
-    });
 }
 
 // ===== TOGGLE MUSIC FUNCTION =====
 window.toggleMusic = function() {
+    if (!music) return;
+    
     if (music.paused) {
         // If muted, unmute first
         if (music.muted) {
@@ -146,86 +159,94 @@ window.toggleMusic = function() {
         }
         music.play().then(() => {
             musicPlaying = true;
-            musicToggle.textContent = '🔊';
+            if (musicToggle) musicToggle.textContent = '🔊';
         }).catch(() => {
             alert('🎵 Click anywhere on the page first to enable music!');
         });
     } else {
         music.pause();
         musicPlaying = false;
-        musicToggle.textContent = '🔇';
+        if (musicToggle) musicToggle.textContent = '🔇';
     }
-}
+};
 
-function handleYesClick() {
+window.handleYesClick = function() {
     if (!runawayEnabled) {
-        const msg = yesTeasePokes[Math.min(yesTeasedCount, yesTeasePokes.length - 1)]
-        yesTeasedCount++
-        showTeaseMessage(msg)
-        return
+        const msg = yesTeasePokes[Math.min(yesTeasedCount, yesTeasePokes.length - 1)];
+        yesTeasedCount++;
+        showTeaseMessage(msg);
+        return;
     }
-    window.location.href = 'yes.html'
-}
+    window.location.href = 'yes.html';
+};
 
 function showTeaseMessage(msg) {
-    let toast = document.getElementById('tease-toast')
-    toast.textContent = msg
-    toast.classList.add('show')
-    clearTimeout(toast._timer)
-    toast._timer = setTimeout(() => toast.classList.remove('show'), 2500)
+    let toast = document.getElementById('tease-toast');
+    if (toast) {
+        toast.textContent = msg;
+        toast.classList.add('show');
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(() => toast.classList.remove('show'), 2500);
+    }
 }
 
-function handleNoClick() {
-    noClickCount++
+window.handleNoClick = function() {
+    if (!noBtn || !yesBtn || !catGif) return;
     
-    const msgIndex = Math.min(noClickCount, noMessages.length - 1)
-    noBtn.textContent = noMessages[msgIndex]
+    noClickCount++;
     
-    const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize)
-    yesBtn.style.fontSize = `${currentSize * 1.35}px`
-    const padY = Math.min(18 + noClickCount * 5, 60)
-    const padX = Math.min(45 + noClickCount * 10, 120)
-    yesBtn.style.padding = `${padY}px ${padX}px`
+    const msgIndex = Math.min(noClickCount, noMessages.length - 1);
+    noBtn.textContent = noMessages[msgIndex];
+    
+    const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+    yesBtn.style.fontSize = `${currentSize * 1.35}px`;
+    const padY = Math.min(18 + noClickCount * 5, 60);
+    const padX = Math.min(45 + noClickCount * 10, 120);
+    yesBtn.style.padding = `${padY}px ${padX}px`;
     
     if (noClickCount >= 2) {
-        const noSize = parseFloat(window.getComputedStyle(noBtn).fontSize)
-        noBtn.style.fontSize = `${Math.max(noSize * 0.85, 10)}px`
+        const noSize = parseFloat(window.getComputedStyle(noBtn).fontSize);
+        noBtn.style.fontSize = `${Math.max(noSize * 0.85, 10)}px`;
     }
     
-    const gifIndex = Math.min(noClickCount, gifStages.length - 1)
-    swapGif(gifStages[gifIndex])
+    const gifIndex = Math.min(noClickCount, gifStages.length - 1);
+    swapGif(gifStages[gifIndex]);
     
     if (noClickCount >= 5 && !runawayEnabled) {
-        enableRunaway()
-        runawayEnabled = true
-        showTeaseMessage("Okay you asked for it! Try catching me now! 🏃‍♂️")
+        enableRunaway();
+        runawayEnabled = true;
+        showTeaseMessage("Okay you asked for it! Try catching me now! 🏃‍♂️");
     }
-}
+};
 
 function swapGif(src) {
-    catGif.style.opacity = '0'
+    if (!catGif) return;
+    catGif.style.opacity = '0';
     setTimeout(() => {
-        catGif.src = src
-        catGif.style.opacity = '1'
-    }, 200)
+        if (catGif) {
+            catGif.src = src;
+            catGif.style.opacity = '1';
+        }
+    }, 200);
 }
 
 function enableRunaway() {
-    noBtn.addEventListener('mouseover', runAway)
-    noBtn.addEventListener('touchstart', runAway, { passive: true })
+    if (!noBtn) return;
+    noBtn.addEventListener('mouseover', runAway);
+    noBtn.addEventListener('touchstart', runAway, { passive: true });
 }
 
 function runAway() {
-    const margin = 20
-    const btnW = noBtn.offsetWidth
-    const btnH = noBtn.offsetHeight
-    const maxX = window.innerWidth - btnW - margin
-    const maxY = window.innerHeight - btnH - margin
-    const randomX = Math.random() * maxX + margin / 2
-    const randomY = Math.random() * maxY + margin / 2
-    noBtn.style.position = 'fixed'
-    noBtn.style.left = `${randomX}px`
-    noBtn.style.top = `${randomY}px`
-    noBtn.style.zIndex = '50'
-}
+    if (!noBtn) return;
+    const margin = 20;
+    const btnW = noBtn.offsetWidth;
+    const btnH = noBtn.offsetHeight;
+    const maxX = window.innerWidth - btnW - margin;
+    const maxY = window.innerHeight - btnH - margin;
+    const randomX = Math.random() * maxX + margin / 2;
+    const randomY = Math.random() * maxY + margin / 2;
+    noBtn.style.position = 'fixed';
+    noBtn.style.left = `${randomX}px`;
+    noBtn.style.top = `${randomY}px`;
+    noBtn.style.zIndex = '50';
 }
