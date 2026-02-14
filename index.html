@@ -68,6 +68,19 @@
             localStorage.setItem('musicPlaying', !music.paused);
         });
 
+        // ===== CHECK IF IT'S A NEW DAY - RESET SONG =====
+        const lastVisit = localStorage.getItem('lastVisitDate');
+        const today = new Date().toDateString();
+        
+        if (lastVisit !== today) {
+            // New day - clear saved song so new one is picked
+            localStorage.removeItem('selectedSong');
+            localStorage.removeItem('songIndex');
+            localStorage.removeItem('songName');
+            localStorage.setItem('lastVisitDate', today);
+            console.log("📅 New day - fresh song will be picked!");
+        }
+
 // ===== ISIMI'S BEAUTIFUL NAMES - CURATED COLLECTION 🇳🇬❤️ =====
 const isimiNames = [
     // ===== YORUBA (Western Nigeria) =====
