@@ -315,3 +315,107 @@ h1 {
 #love-letter-btn:hover {
     transform: scale(1.1) !important;
 }
+
+/* Flip card styles */
+.flip-card {
+    background-color: transparent;
+    width: 200px;
+    height: 200px;
+    perspective: 1000px;
+    margin: 10px;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 20px;
+}
+
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 20px;
+}
+
+.flip-card-front {
+    background: linear-gradient(145deg, #ff6b9d, #d63384);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+}
+
+.flip-card-back {
+    background: white;
+    color: #d63384;
+    transform: rotateY(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    font-size: 0.9rem;
+    border: 3px solid #ffb6c1;
+}
+
+/* Bingo cell styles */
+.bingo-cell {
+    background: white;
+    padding: 15px 5px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.bingo-cell:hover {
+    transform: scale(1.05);
+    background: #fff0f3;
+}
+
+.bingo-cell.marked {
+    background: #d63384;
+    color: white;
+    text-decoration: line-through;
+}
+
+/* Emoji rain animation */
+.emoji-rain {
+    position: fixed;
+    top: -10%;
+    font-size: 2rem;
+    animation: rain 3s linear forwards;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+@keyframes rain {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
+
+/* Bob animation for message in a bottle */
+@keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Wiggle animation for gift box */
+@keyframes wiggle {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+}
