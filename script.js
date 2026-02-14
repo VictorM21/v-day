@@ -1,4 +1,4 @@
-const gifStages = [
+cconst gifStages = [
     "https://media.tenor.com/EBV7OT7ACfwAAAAj/u-u-qua-qua-u-quaa.gif",    // 0 normal
     "https://media1.tenor.com/m/uDugCXK4vI4AAAAd/chiikawa-hachiware.gif",  // 1 confused
     "https://media.tenor.com/f_rkpJbH1s8AAAAj/somsom1012.gif",             // 2 pleading
@@ -45,7 +45,7 @@ const noBtn = document.getElementById('no-btn')
 const music = document.getElementById('bg-music')
 const musicToggle = document.getElementById('music-toggle')
 
-// ===== RANDOM SONG SELECTION WITH SONG SAVING =====
+// ===== FIXED: RANDOM SONG SELECTION =====
 const songs = [
     "music/Mannywellz-Looking-For-God.mp3",
     "music/Tchella-Ife-In-Love.mp3",
@@ -58,7 +58,7 @@ const songNames = [
     "Mannywellz - Magic Take It Easy"
 ];
 
-// Check if a song was already selected on a previous visit today
+// Check if a song was already selected today
 let selectedSong = localStorage.getItem('selectedSong');
 let randomIndex;
 
@@ -71,14 +71,14 @@ if (selectedSong) {
     randomIndex = Math.floor(Math.random() * songs.length);
     selectedSong = songs[randomIndex];
     
-    // Save it for the next page
+    // Save it for the next page and future visits today
     localStorage.setItem('selectedSong', selectedSong);
     localStorage.setItem('songIndex', randomIndex);
     localStorage.setItem('songName', songNames[randomIndex]);
     console.log("🎵 Today's new song: " + songNames[randomIndex]);
 }
 
-// Clear any existing sources
+// Clear any existing sources and set the new one
 while (music.firstChild) {
     music.removeChild(music.firstChild);
 }
@@ -137,7 +137,7 @@ if (isMobile) {
     });
 }
 
-// ===== FIXED TOGGLE MUSIC FUNCTION - PROPERLY UNMUTES =====
+// ===== TOGGLE MUSIC FUNCTION =====
 window.toggleMusic = function() {
     if (music.paused) {
         // If muted, unmute first
@@ -147,8 +147,7 @@ window.toggleMusic = function() {
         music.play().then(() => {
             musicPlaying = true;
             musicToggle.textContent = '🔊';
-        }).catch((error) => {
-            console.log("Playback failed:", error);
+        }).catch(() => {
             alert('🎵 Click anywhere on the page first to enable music!');
         });
     } else {
@@ -228,4 +227,5 @@ function runAway() {
     noBtn.style.left = `${randomX}px`
     noBtn.style.top = `${randomY}px`
     noBtn.style.zIndex = '50'
+}
 }
