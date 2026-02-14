@@ -45,7 +45,7 @@ const noBtn = document.getElementById('no-btn')
 const music = document.getElementById('bg-music')
 const musicToggle = document.getElementById('music-toggle')
 
-// ===== RANDOM SONG SELECTION - NEW! =====
+// ===== FIXED: RANDOM SONG SELECTION WITH CACHE BUSTING =====
 const songs = [
     "music/Mannywellz-Looking-For-God.mp3",
     "music/Tchella-Ife-In-Love.mp3",
@@ -53,16 +53,26 @@ const songs = [
 ];
 
 // Pick a random song
-const randomSong = songs[Math.floor(Math.random() * songs.length)];
+const randomIndex = Math.floor(Math.random() * songs.length);
+const selectedSong = songs[randomIndex];
 
-// Update the audio source
-const source = music.querySelector('source');
-if (source) {
-    source.src = randomSong;
-    music.load(); // Reload with new source
+// Clear any existing sources
+while (music.firstChild) {
+    music.removeChild(music.firstChild);
 }
 
-console.log("🎵 Today's song: " + randomSong.split('/').pop());
+// Create new source element with cache-busting parameter
+const source = document.createElement('source');
+source.src = selectedSong + '?v=' + new Date().getTime(); // Cache buster!
+source.type = 'audio/mpeg';
+music.appendChild(source);
+
+// Reload the audio
+music.load();
+
+// Log which song is playing
+const songNames = ["Mannywellz - Looking For God", "Tchella - Ife In Love", "Mannywellz - Magic Take It Easy"];
+console.log("🎵 Today's song: " + songNames[randomIndex]);
 
 // ===== MOBILE-OPTIMIZED MUSIC SETUP =====
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
