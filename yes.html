@@ -325,10 +325,10 @@
         <div class="memory-wall" style="margin-top: 30px;">
             <h2>🗺️ Our Love Map</h2>
             <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 20px 0;" id="cityContainer">
-                <span style="background: #d63384; color: white; padding: 8px 20px; border-radius: 30px;">📍 [Bowmanville]</span>
-                <span style="background: #d63384; color: white; padding: 8px 20px; border-radius: 30px;">📍 [Markham]</span>
-                <span style="background: #d63384; color: white; padding: 8px 20px; border-radius: 30px;">📍 [Lagos]</span>
-                <span style="background: #d63384; color: white; padding: 8px 20px; border-radius: 30px;">📍 [Iragberi]</span>
+                <span style="background: #d63384; color: white; padding: 8px 20px; border-radius: 30px;">📍 Bowmanville</span>
+                <span style="background: #d63384; color: white; padding: 8px 20px; border-radius: 30px;">📍 Markham</span>
+                <span style="background: #d63384; color: white; padding: 8px 20px; border-radius: 30px;">📍 Lagos</span>
+                <span style="background: #d63384; color: white; padding: 8px 20px; border-radius: 30px;">📍 Iragberi</span>
             </div>
             <div style="margin: 20px 0;">
                 <input type="text" id="newCity" placeholder="Add a new city" style="padding: 10px; border-radius: 30px; border: 2px solid #d63384; width: 200px;">
@@ -592,11 +592,13 @@
             message.innerHTML = messages[Math.floor(Math.random() * messages.length)] + " " + random + "%";
             
             // Small confetti burst
-            confetti({
-                particleCount: 50,
-                spread: 50,
-                origin: { y: 0.6 }
-            });
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 50,
+                    spread: 50,
+                    origin: { y: 0.6 }
+                });
+            }
         };
         
         // ===== LOVE FORTUNE TELLER =====
@@ -623,12 +625,14 @@
             document.getElementById('fortuneMessage').innerHTML = randomFortune;
             
             // Sparkle effect
-            confetti({
-                particleCount: 30,
-                spread: 40,
-                origin: { y: 0.5 },
-                colors: ['#9933ff', '#cc66ff', '#ff99ff']
-            });
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 30,
+                    spread: 40,
+                    origin: { y: 0.5 },
+                    colors: ['#9933ff', '#cc66ff', '#ff99ff']
+                });
+            }
         };
         
         // ===== LOVE BINGO =====
@@ -639,11 +643,13 @@
             const markedCells = document.querySelectorAll('.bingo-cell.marked');
             if (markedCells.length >= 5) {
                 document.getElementById('bingoMessage').innerHTML = '🎉 BINGO! We have so many beautiful memories! 🎉';
-                confetti({
-                    particleCount: 100,
-                    spread: 70,
-                    origin: { y: 0.5 }
-                });
+                if (typeof confetti === 'function') {
+                    confetti({
+                        particleCount: 100,
+                        spread: 70,
+                        origin: { y: 0.5 }
+                    });
+                }
             }
         };
         
@@ -662,11 +668,13 @@
             }
             
             // Small confetti pop
-            confetti({
-                particleCount: 30,
-                spread: 50,
-                origin: { y: 0.5 }
-            });
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 30,
+                    spread: 50,
+                    origin: { y: 0.5 }
+                });
+            }
         };
         
         // ===== MESSAGE IN A BOTTLE =====
@@ -715,11 +723,13 @@
         window.openGift = function() {
             document.getElementById('giftMessage').style.display = 'block';
             document.getElementById('giftBox').style.animation = 'none';
-            confetti({
-                particleCount: 100,
-                spread: 70,
-                origin: { y: 0.6 }
-            });
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            }
         };
         
         // ===== MEMORY MAP =====
@@ -795,11 +805,13 @@
             }
             
             // Small confetti burst
-            confetti({
-                particleCount: 50,
-                spread: 70,
-                origin: { y: 0.5 }
-            });
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 50,
+                    spread: 70,
+                    origin: { y: 0.5 }
+                });
+            }
         });
         
         // ===== HEART TRAIL =====
