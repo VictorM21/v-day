@@ -21,6 +21,14 @@
         
         <p class="yes-message">You just made me the happiest person! 💕</p>
         
+        <!-- ===== THEME SWITCHER ===== -->
+        <div style="position: fixed; top: 20px; right: 20px; z-index: 1000; background: white; padding: 10px; border-radius: 50px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+            <button onclick="changeTheme('pink')" style="width: 40px; height: 40px; border-radius: 50%; background: #ff6b9d; border: none; cursor: pointer; margin: 0 5px;" title="Pink Theme"></button>
+            <button onclick="changeTheme('purple')" style="width: 40px; height: 40px; border-radius: 50%; background: #9933ff; border: none; cursor: pointer; margin: 0 5px;" title="Purple Theme"></button>
+            <button onclick="changeTheme('green')" style="width: 40px; height: 40px; border-radius: 50%; background: #008753; border: none; cursor: pointer; margin: 0 5px;" title="Green Theme"></button>
+            <button onclick="changeTheme('gold')" style="width: 40px; height: 40px; border-radius: 50%; background: #ffd700; border: none; cursor: pointer; margin: 0 5px;" title="Gold Theme"></button>
+        </div>
+        
         <!-- ===== 1. MUSIC VISUALIZER BARS ===== -->
         <div style="display: flex; justify-content: center; gap: 8px; height: 60px; margin: 30px 0 20px;">
             <div class="visualizer-bar" style="animation-delay: 0s;"></div>
@@ -55,17 +63,57 @@
             </div>
         </div>
         
-        <!-- ===== 4. NIGERIAN-ONLY PET NAMES SECTION ===== -->
+        <!-- ===== 4. MEMORY SCRAPBOOK - FLIP CARDS ===== -->
+        <div class="memory-wall" style="margin-top: 30px;">
+            <h2>📸 Memory Scrapbook - Hover to Reveal</h2>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 20px;">
+                
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            📷 1
+                        </div>
+                        <div class="flip-card-back">
+                            <p><strong>First Deep Conversation</strong><br>August 13, 2023<br>💭 Souls connected</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            📷 2
+                        </div>
+                        <div class="flip-card-back">
+                            <p><strong>First Date</strong><br>August 27, 2023<br>💕 Where it all began</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            📷 3
+                        </div>
+                        <div class="flip-card-back">
+                            <p><strong>Start of Our Love Story</strong><br>September 17, 2023<br>💋 Hearts knew</p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <p style="font-style: italic; color: #555;">Hover over each memory to reveal the story 💕</p>
+        </div>
+        
+        <!-- ===== 5. NIGERIAN-ONLY PET NAMES SECTION ===== -->
         <div class="memory-wall" style="margin-top: 30px; background: linear-gradient(145deg, #e6f3e6, #f0fff0); border-color: #008753;">
             <h2 style="color: #008753;">🇳🇬 Nigerian Pet Names For You ❤️</h2>
-            <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; padding: 20px;">
+            <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; padding: 20px; max-height: 300px; overflow-y: auto;">
                 <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Ifunanya m</span>
-                <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Ola m</span>
                 <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Nkem</span>
                 <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Obim</span>
                 <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Akalaka</span>
                 <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Ure</span>
-                <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Ngozi</span>
                 <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Adamma</span>
                 <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Chiamaka</span>
                 <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Somto</span>
@@ -78,23 +126,21 @@
                 <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Esit mi</span>
                 <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Mfon</span>
                 <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Idara</span>
-                <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Nkoyo</span>
                 <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Ngover</span>
                 <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Dooshima</span>
                 <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Tersoo</span>
                 <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Oma</span>
                 <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Oghene me</span>
-                <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Oghenekevwe</span>
                 <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Ayebatari</span>
                 <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Boma</span>
                 <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Kuro</span>
                 <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Tamunoibi</span>
                 <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Sotonye</span>
                 <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Yidde</span>
+                <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Mi yidi ma</span>
                 <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Suudu</span>
                 <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Jawdi</span>
                 <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Barka</span>
-                <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Nafu</span>
                 <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Gana</span>
                 <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Mi gana</span>
                 <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Egi mi</span>
@@ -102,10 +148,10 @@
                 <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Tsadu</span>
                 <span style="background: white; padding: 12px 25px; border-radius: 50px; font-size: 1.2rem; font-weight: bold; color: #d63384; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">Ndakun</span>
             </div>
-            <p style="font-style: italic; color: #555; margin-top: 20px;">50+ ways to say "my love" in Nigerian languages 🇳🇬❤️</p>
+            <p style="font-style: italic; color: #555; margin-top: 20px;">Beautiful ways to say "my love" in Nigerian languages 🇳🇬❤️</p>
         </div>
         
-        <!-- ===== 5. COUNTDOWN TO REUNION ===== -->
+        <!-- ===== 6. COUNTDOWN TO REUNION ===== -->
         <div class="memory-wall" style="margin-top: 30px; background: linear-gradient(145deg, #fff0f3, #ffe4e8);">
             <h2>⏳ Counting Down to You</h2>
             <div style="font-size: 2rem; font-weight: 900; color: #d63384; margin: 20px 0;" id="countdown"></div>
@@ -115,7 +161,7 @@
             <button onclick="setReunionDate()" style="background: #d63384; color: white; border: none; border-radius: 30px; padding: 10px 20px; margin-left: 10px; cursor: pointer;">Set Date</button>
         </div>
         
-        <!-- ===== 6. LOVE METER / QUIZ ===== -->
+        <!-- ===== 7. LOVE METER ===== -->
         <div class="memory-wall" style="margin-top: 30px;">
             <h2>💘 Our Love Meter</h2>
             <div style="width: 100%; height: 30px; background: #ffe4e8; border-radius: 50px; margin: 20px 0; overflow: hidden;">
@@ -125,7 +171,65 @@
             <button onclick="checkLove()" style="background: #d63384; color: white; border: none; border-radius: 30px; padding: 10px 30px; font-size: 1rem; cursor: pointer;">Test Our Love</button>
         </div>
         
-        <!-- ===== 7. MEMORY TIMELINE - UPDATED WITH YOUR DATES ===== -->
+        <!-- ===== 8. LOVE FORTUNE TELLER ===== -->
+        <div class="memory-wall" style="margin-top: 30px; background: linear-gradient(145deg, #e6ccff, #f2e6ff); border-color: #9933ff;">
+            <h2 style="color: #9933ff;">🔮 Love Fortune Teller</h2>
+            <p style="font-size: 1.5rem; margin: 20px 0; min-height: 80px;" id="fortuneMessage">✨ Click for your fortune ✨</p>
+            <button onclick="tellFortune()" style="background: #9933ff; color: white; border: none; border-radius: 30px; padding: 12px 35px; font-size: 1.1rem; cursor: pointer;">Tell My Fortune</button>
+        </div>
+        
+        <!-- ===== 9. RELATIONSHIP MILESTONES ===== -->
+        <div class="memory-wall" style="margin-top: 30px; background: linear-gradient(145deg, #fff0f3, #ffe4e8);">
+            <h2>📊 Our Relationship Milestones</h2>
+            
+            <div style="margin: 30px 0; text-align: left;">
+                <p style="margin-bottom: 5px;">❤️ First Deep Conversation</p>
+                <div style="width: 100%; height: 20px; background: #ffe4e8; border-radius: 30px; margin-bottom: 20px;">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(90deg, #ff6b9d, #d63384); border-radius: 30px;"></div>
+                </div>
+                
+                <p style="margin-bottom: 5px;">💕 First Date</p>
+                <div style="width: 100%; height: 20px; background: #ffe4e8; border-radius: 30px; margin-bottom: 20px;">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(90deg, #ff6b9d, #d63384); border-radius: 30px;"></div>
+                </div>
+                
+                <p style="margin-bottom: 5px;">💋 Start of Love Story</p>
+                <div style="width: 100%; height: 20px; background: #ffe4e8; border-radius: 30px; margin-bottom: 20px;">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(90deg, #ff6b9d, #d63384); border-radius: 30px;"></div>
+                </div>
+                
+                <p style="margin-bottom: 5px;">🌍 Long Distance</p>
+                <div style="width: 100%; height: 20px; background: #ffe4e8; border-radius: 30px; margin-bottom: 20px;">
+                    <div id="distanceProgress" style="width: 75%; height: 100%; background: linear-gradient(90deg, #ff6b9d, #d63384); border-radius: 30px;"></div>
+                </div>
+                
+                <p style="margin-bottom: 5px;">💍 Forever Together</p>
+                <div style="width: 100%; height: 20px; background: #ffe4e8; border-radius: 30px;">
+                    <div style="width: 0%; height: 100%; background: linear-gradient(90deg, #ff6b9d, #d63384); border-radius: 30px;"></div>
+                </div>
+            </div>
+            
+            <p style="font-style: italic; color: #555;">Every milestone leads us closer to forever ❤️</p>
+        </div>
+        
+        <!-- ===== 10. LOVE BINGO ===== -->
+        <div class="memory-wall" style="margin-top: 30px;">
+            <h2>🎯 Our Love Bingo</h2>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 300px; margin: 20px auto;">
+                <div class="bingo-cell" onclick="markBingo(this)">💕 First Kiss</div>
+                <div class="bingo-cell" onclick="markBingo(this)">🌹 First Date</div>
+                <div class="bingo-cell" onclick="markBingo(this)">💌 Love Letter</div>
+                <div class="bingo-cell" onclick="markBingo(this)">🎵 Our Song</div>
+                <div class="bingo-cell" onclick="markBingo(this)">✨ First I Love You</div>
+                <div class="bingo-cell" onclick="markBingo(this)">🌍 Distance</div>
+                <div class="bingo-cell" onclick="markBingo(this)">💍 Promise</div>
+                <div class="bingo-cell" onclick="markBingo(this)">📸 First Photo</div>
+                <div class="bingo-cell" onclick="markBingo(this)">🎁 Surprise</div>
+            </div>
+            <p id="bingoMessage" style="font-weight: bold; color: #d63384;">Click cells to mark our memories!</p>
+        </div>
+        
+        <!-- ===== 11. MEMORY TIMELINE ===== -->
         <div class="memory-wall" style="margin-top: 30px;">
             <h2>📅 Our Love Timeline</h2>
             <div style="text-align: left; padding: 20px;">
@@ -168,7 +272,7 @@
             <p style="font-style: italic; color: #555; margin-top: 20px;">...and so many more moments to come</p>
         </div>
         
-        <!-- ===== 8. LOVE PLAYLIST ===== -->
+        <!-- ===== 12. LOVE PLAYLIST ===== -->
         <div class="memory-wall" style="margin-top: 30px;">
             <h2>🎵 Our Love Playlist - Random Song Each Visit!</h2>
             <div style="text-align: left; padding: 10px;">
@@ -199,10 +303,9 @@
                 
             </div>
             <p style="font-style: italic; color: #555; margin-top: 20px;">🎲 Random song plays each time you visit!</p>
-            <p style="font-size: 0.9rem; color: #888;">Refresh the page to hear a different song</p>
         </div>
         
-        <!-- ===== 9. VIRTUAL GIFT BOX ===== -->
+        <!-- ===== 13. VIRTUAL GIFT BOX ===== -->
         <div style="margin: 40px auto; text-align: center;">
             <div id="giftBox" onclick="openGift()" style="font-size: 8rem; cursor: pointer; animation: wiggle 2s infinite; display: inline-block; filter: drop-shadow(0 10px 20px rgba(214,51,132,0.3));">
                 🎁
@@ -218,14 +321,14 @@
             </div>
         </div>
         
-        <!-- ===== 10. MEMORY MAP ===== -->
+        <!-- ===== 14. MEMORY MAP ===== -->
         <div class="memory-wall" style="margin-top: 30px;">
             <h2>🗺️ Our Love Map</h2>
-            <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 20px 0;">
-                <span style="background: #d63384; color: white; padding: 8px 20px; border-radius: 30px;">📍 [City 1]</span>
-                <span style="background: #d63384; color: white; padding: 8px 20px; border-radius: 30px;">📍 [City 2]</span>
-                <span style="background: #d63384; color: white; padding: 8px 20px; border-radius: 30px;">📍 [City 3]</span>
-                <span style="background: #d63384; color: white; padding: 8px 20px; border-radius: 30px;">📍 [City 4]</span>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 20px 0;" id="cityContainer">
+                <span style="background: #d63384; color: white; padding: 8px 20px; border-radius: 30px;">📍 [Bowmanville]</span>
+                <span style="background: #d63384; color: white; padding: 8px 20px; border-radius: 30px;">📍 [Markham]</span>
+                <span style="background: #d63384; color: white; padding: 8px 20px; border-radius: 30px;">📍 [Lagos]</span>
+                <span style="background: #d63384; color: white; padding: 8px 20px; border-radius: 30px;">📍 [Iragberi]</span>
             </div>
             <div style="margin: 20px 0;">
                 <input type="text" id="newCity" placeholder="Add a new city" style="padding: 10px; border-radius: 30px; border: 2px solid #d63384; width: 200px;">
@@ -234,103 +337,7 @@
             <p style="margin-top: 20px;">...and many more to explore together</p>
         </div>
         
-        <!-- ===== 11. "I LOVE YOU" IN MANY LANGUAGES ===== -->
-        <div class="memory-wall" style="margin-top: 30px; background: linear-gradient(145deg, #fff0f3, #ffe4e8);">
-            <h2>🌍 I Love You in 50+ Languages</h2>
-            <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; padding: 20px; max-height: 400px; overflow-y: auto;">
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇳🇬 Mo nifẹ rẹ</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇫🇷 Je t'aime</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇪🇸 Te amo</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇮🇹 Ti amo</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇩🇪 Ich liebe dich</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇵🇹 Eu te amo</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇷🇺 Ya tebya lyublyu</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇯🇵 Aishiteru</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇰🇷 Saranghae</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇨🇳 Wǒ ài nǐ</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇦🇪 Ana uhibbuka</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇮🇳 Main tumse pyar karta hoon</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇬🇷 S'agapo</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇹🇷 Seni seviyorum</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇵🇭 Mahal kita</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇻🇳 Anh yêu em</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇹🇭 Chan rak khun</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇭🇺 Szeretlek</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇵🇱 Kocham cię</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇸🇪 Jag älskar dig</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇳🇴 Jeg elsker deg</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇩🇰 Jeg elsker dig</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇫🇮 Rakastan sinua</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇮🇸 Ég elska þig</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇨🇿 Miluji tě</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇭🇷 Volim te</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇷🇴 Te iubesc</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇧🇬 Obicham te</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇷🇸 Volim te</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇸🇮 Ljubim te</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇸🇰 Ľúbim ťa</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇪🇪 Ma armastan sind</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇱🇻 Es mīlu tevi</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇱🇹 Aš tave myliu</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇺🇦 Ya tebe lyublyu</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇧🇾 Ja ciabie kachaju</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇬🇪 Mikvarhar</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇦🇲 Yes sirum yem</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇦🇿 Mən səni sevirəm</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇰🇿 Men seni jaqsy kóremin</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇺🇿 Men seni sevaman</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇹🇯 Man turo dūst medoram</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇲🇳 Bi chamd khairtai</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇰🇭 Soro lahn nhee ah</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇱🇦 Khoi hak jao</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇲🇲 Chit tal</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇱🇰 Mama oyata adarei</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇳🇵 Ma timīlā'ī māyā garchu</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇧🇩 Ami tomake bhalobashi</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇵🇰 Main tumse pyar karta hoon</span>
-                <span style="background: white; padding: 8px 15px; border-radius: 50px; font-size: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">🇦🇫 Za ta sara meena kawom</span>
-            </div>
-        </div>
-        
-        <!-- ===== 12. 10 REASONS WHY I LOVE YOU ===== -->
-        <div class="memory-wall" style="margin-top: 30px; background: linear-gradient(145deg, #fff0f3, #ffe4e8);">
-            <h2>10 Reasons You're My Rest 💕</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; text-align: left; padding: 10px;">
-                <div style="background: white; padding: 15px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
-                    <span style="color: #d63384; font-size: 1.5rem; margin-right: 10px;">1️⃣</span> Your smile lights up my entire world
-                </div>
-                <div style="background: white; padding: 15px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
-                    <span style="color: #d63384; font-size: 1.5rem; margin-right: 10px;">2️⃣</span> Your laugh is my favorite song
-                </div>
-                <div style="background: white; padding: 15px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
-                    <span style="color: #d63384; font-size: 1.5rem; margin-right: 10px;">3️⃣</span> Your heart is pure gold
-                </div>
-                <div style="background: white; padding: 15px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
-                    <span style="color: #d63384; font-size: 1.5rem; margin-right: 10px;">4️⃣</span> You understand me without words
-                </div>
-                <div style="background: white; padding: 15px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
-                    <span style="color: #d63384; font-size: 1.5rem; margin-right: 10px;">5️⃣</span> You're my biggest cheerleader
-                </div>
-                <div style="background: white; padding: 15px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
-                    <span style="color: #d63384; font-size: 1.5rem; margin-right: 10px;">6️⃣</span> You make ordinary days magical
-                </div>
-                <div style="background: white; padding: 15px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
-                    <span style="color: #d63384; font-size: 1.5rem; margin-right: 10px;">7️⃣</span> Your strength inspires me daily
-                </div>
-                <div style="background: white; padding: 15px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
-                    <span style="color: #d63384; font-size: 1.5rem; margin-right: 10px;">8️⃣</span> You're my favorite human ever
-                </div>
-                <div style="background: white; padding: 15px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
-                    <span style="color: #d63384; font-size: 1.5rem; margin-right: 10px;">9️⃣</span> You believe in me when I doubt myself
-                </div>
-                <div style="background: white; padding: 15px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.05);">
-                    <span style="color: #d63384; font-size: 1.5rem; margin-right: 10px;">🔟</span> You're YOU - and that's everything
-                </div>
-            </div>
-            <p style="margin-top: 25px; font-size: 1.3rem; color: #008753; font-weight: bold;">...and infinite more reasons ❤️</p>
-        </div>
-        
-        <!-- ===== 13. YORUBA PROVERBS ===== -->
+        <!-- ===== 15. YORUBA PROVERBS ===== -->
         <div class="memory-wall" style="margin-top: 30px; background: linear-gradient(145deg, #e6f3e6, #f0fff0); border-color: #008753;">
             <h2 style="color: #008753;">Ọ̀rọ̀ ìfẹ́ - Words of Love 🇳🇬</h2>
             <div style="font-size: 1.2rem; line-height: 2; padding: 10px;">
@@ -342,7 +349,7 @@
             <p style="font-size: 1.3rem; color: #008753; font-weight: bold; margin-top: 10px;">Mo nifẹ rẹ, Isimi! ❤️🇳🇬</p>
         </div>
         
-        <!-- ===== 14. RING ANIMATION - IT'S ALREADY REAL! 💍 ===== -->
+        <!-- ===== 16. RING ANIMATION - IT'S ALREADY REAL! 💍 ===== -->
         <div style="margin: 50px auto 30px; text-align: center;">
             <div style="font-size: 6rem; animation: ringSpin 2s infinite alternate; filter: drop-shadow(0 8px 16px rgba(214,51,132,0.3));">
                 💍
@@ -358,14 +365,27 @@
             </p>
         </div>
         
-        <!-- ===== 15. SECRET MESSAGE LINK ===== -->
+        <!-- ===== SECRET MESSAGE LINK ===== -->
         <p style="position: fixed; bottom: 100px; left: 20px; font-size: 0.9rem; color: rgba(214,51,132,0.4); cursor: pointer; z-index: 1000; background: rgba(255,255,255,0.5); padding: 8px 15px; border-radius: 30px; backdrop-filter: blur(5px);" 
            onclick="alert('I love you, Isimi. Always have, always will. You are my rest, my peace, my everything. Today, tomorrow, forever. ❤️')">
             💌 P.S. - Click for a secret
         </p>
     </div>
 
-    <!-- ===== 16. LOVE LETTER BUTTON & MODAL ===== -->
+    <!-- ===== MESSAGE IN A BOTTLE ===== -->
+    <div style="position: fixed; bottom: 180px; right: 20px; z-index: 1000; cursor: pointer; animation: bob 3s infinite;" onclick="openBottle()">
+        <div style="font-size: 4rem; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));">
+            🍾
+        </div>
+    </div>
+
+    <div id="bottleMessage" style="display: none; position: fixed; bottom: 250px; right: 80px; background: white; padding: 20px; border-radius: 20px; border: 5px solid #ffb6c1; max-width: 250px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); z-index: 1001;">
+        <p style="margin-bottom: 10px; font-weight: bold;">💌 Message in a Bottle</p>
+        <p style="font-style: italic; color: #555;">"I love you more than all the grains of sand on every beach. Distance can't change that."</p>
+        <button onclick="document.getElementById('bottleMessage').style.display='none'" style="background: #d63384; color: white; border: none; border-radius: 20px; padding: 5px 15px; margin-top: 10px;">Close</button>
+    </div>
+
+    <!-- ===== LOVE LETTER BUTTON & MODAL ===== -->
     <button id="love-letter-btn" style="position: fixed; bottom: 100px; right: 20px; background: linear-gradient(135deg, #d63384, #ff6b9d); color: white; border: none; border-radius: 50px; padding: 14px 25px; font-size: 1.1rem; font-weight: bold; cursor: pointer; box-shadow: 0 8px 20px rgba(214,51,132,0.4); z-index: 1000; transition: transform 0.2s;">
         💌 Open Your Love Letter
     </button>
@@ -465,7 +485,7 @@
             </button>
             
             <p style="margin-top: 20px; font-size: 0.9rem; color: #999;">
-                📍 Sent with love from [Your Country] to [Her Country] 🌍❤️
+                📍 Sent with love from Nigeria to Canada 🌍❤️
             </p>
         </div>
     </div>
@@ -583,6 +603,84 @@
             });
         };
         
+        // ===== LOVE FORTUNE TELLER =====
+        window.tellFortune = function() {
+            const fortunes = [
+                "🌹 You will be loved forever",
+                "💕 True love is calling your name",
+                "💘 Someone is thinking of you right now",
+                "💖 A surprise date is in your future",
+                "💗 Your heart will skip a beat tomorrow",
+                "💓 You are the reason someone smiles",
+                "💞 Your love story is just beginning",
+                "✨ Magic is in the air for you two",
+                "⭐ You are the star in someone's sky",
+                "🌙 A moonlit adventure awaits",
+                "🌸 Flowers will come your way soon",
+                "🎁 A sweet surprise is coming",
+                "💌 Check your messages - good news awaits",
+                "💎 You are more precious than diamonds",
+                "👑 You are royalty in someone's eyes"
+            ];
+            
+            const randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
+            document.getElementById('fortuneMessage').innerHTML = randomFortune;
+            
+            // Sparkle effect
+            confetti({
+                particleCount: 30,
+                spread: 40,
+                origin: { y: 0.5 },
+                colors: ['#9933ff', '#cc66ff', '#ff99ff']
+            });
+        };
+        
+        // ===== LOVE BINGO =====
+        window.markBingo = function(cell) {
+            cell.classList.toggle('marked');
+            
+            // Check for bingo
+            const markedCells = document.querySelectorAll('.bingo-cell.marked');
+            if (markedCells.length >= 5) {
+                document.getElementById('bingoMessage').innerHTML = '🎉 BINGO! We have so many beautiful memories! 🎉';
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.5 }
+                });
+            }
+        };
+        
+        // ===== THEME SWITCHER =====
+        window.changeTheme = function(color) {
+            const body = document.body;
+            
+            if (color === 'pink') {
+                body.style.background = '#FFD9E6';
+            } else if (color === 'purple') {
+                body.style.background = '#f2e6ff';
+            } else if (color === 'green') {
+                body.style.background = '#e6f3e6';
+            } else if (color === 'gold') {
+                body.style.background = '#fff2cc';
+            }
+            
+            // Small confetti pop
+            confetti({
+                particleCount: 30,
+                spread: 50,
+                origin: { y: 0.5 }
+            });
+        };
+        
+        // ===== MESSAGE IN A BOTTLE =====
+        window.openBottle = function() {
+            document.getElementById('bottleMessage').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('bottleMessage').style.display = 'none';
+            }, 5000);
+        };
+        
         // ===== TIMELINE DATES =====
         window.saveTimelineDates = function() {
             const dates = document.querySelectorAll('.timeline-date');
@@ -617,40 +715,6 @@
             });
         }
         
-        // ===== PLAYLIST =====
-        window.savePlaylist = function() {
-            const songs = document.querySelectorAll('.playlist-song');
-            const savedSongs = [];
-            songs.forEach(song => {
-                if (song.value) {
-                    savedSongs.push(song.value);
-                    // Update the song name display
-                    const parentDiv = song.closest('div').querySelector('p:first-child');
-                    if (parentDiv) {
-                        parentDiv.innerText = song.value;
-                    }
-                }
-            });
-            localStorage.setItem('playlist', JSON.stringify(savedSongs));
-            alert('✅ Playlist saved!');
-        };
-        
-        // Load saved playlist
-        const savedPlaylist = localStorage.getItem('playlist');
-        if (savedPlaylist) {
-            const songs = JSON.parse(savedPlaylist);
-            const inputs = document.querySelectorAll('.playlist-song');
-            inputs.forEach((input, index) => {
-                if (songs[index]) {
-                    input.value = songs[index];
-                    const parentDiv = input.closest('div').querySelector('p:first-child');
-                    if (parentDiv) {
-                        parentDiv.innerText = songs[index];
-                    }
-                }
-            });
-        }
-        
         // ===== GIFT BOX =====
         window.openGift = function() {
             document.getElementById('giftMessage').style.display = 'block';
@@ -666,21 +730,21 @@
         window.addCity = function() {
             const newCity = document.getElementById('newCity').value;
             if (newCity) {
-                const cityContainer = document.querySelector('.memory-wall .flex-wrap');
+                const cityContainer = document.getElementById('cityContainer');
                 const newSpan = document.createElement('span');
-                newSpan.className = 'bg-[#d63384] text-white px-4 py-2 rounded-full';
                 newSpan.style.background = '#d63384';
                 newSpan.style.color = 'white';
                 newSpan.style.padding = '8px 20px';
                 newSpan.style.borderRadius = '30px';
                 newSpan.style.margin = '5px';
+                newSpan.style.display = 'inline-block';
                 newSpan.innerText = '📍 ' + newCity;
                 cityContainer.appendChild(newSpan);
                 document.getElementById('newCity').value = '';
                 
                 // Save to localStorage
                 const cities = [];
-                document.querySelectorAll('.memory-wall .flex-wrap span').forEach(span => {
+                document.querySelectorAll('#cityContainer span').forEach(span => {
                     cities.push(span.innerText);
                 });
                 localStorage.setItem('loveMap', JSON.stringify(cities));
@@ -691,7 +755,7 @@
         const savedCities = localStorage.getItem('loveMap');
         if (savedCities) {
             const cities = JSON.parse(savedCities);
-            const cityContainer = document.querySelector('.memory-wall .flex-wrap');
+            const cityContainer = document.getElementById('cityContainer');
             cityContainer.innerHTML = ''; // Clear default
             cities.forEach(city => {
                 const span = document.createElement('span');
@@ -700,6 +764,7 @@
                 span.style.padding = '8px 20px';
                 span.style.borderRadius = '30px';
                 span.style.margin = '5px';
+                span.style.display = 'inline-block';
                 span.innerText = city;
                 cityContainer.appendChild(span);
             });
@@ -714,6 +779,31 @@
             if (e.target === this) {
                 this.style.display = 'none';
             }
+        });
+        
+        // ===== EMOJI RAIN ON DOUBLE CLICK =====
+        document.addEventListener('dblclick', function(e) {
+            const emojis = ['❤️', '💕', '💗', '💖', '💘', '💝', '💞', '💓', '✨', '⭐', '🌹', '🌸', '🎉', '🎊'];
+            
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const emoji = document.createElement('div');
+                    emoji.className = 'emoji-rain';
+                    emoji.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+                    emoji.style.left = Math.random() * 100 + '%';
+                    emoji.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    emoji.style.fontSize = (Math.random() * 2 + 1.5) + 'rem';
+                    document.body.appendChild(emoji);
+                    setTimeout(() => emoji.remove(), 3000);
+                }, i * 100);
+            }
+            
+            // Small confetti burst
+            confetti({
+                particleCount: 50,
+                spread: 70,
+                origin: { y: 0.5 }
+            });
         });
         
         // ===== HEART TRAIL =====
@@ -775,6 +865,108 @@
             100% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
         }
         
+        /* Wiggle animation for gift box */
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+        
+        /* Bob animation for message in a bottle */
+        @keyframes bob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        /* Flip card styles */
+        .flip-card {
+            background-color: transparent;
+            width: 200px;
+            height: 200px;
+            perspective: 1000px;
+            margin: 10px;
+        }
+        
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            border-radius: 20px;
+        }
+        
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 20px;
+        }
+        
+        .flip-card-front {
+            background: linear-gradient(145deg, #ff6b9d, #d63384);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+        
+        .flip-card-back {
+            background: white;
+            color: #d63384;
+            transform: rotateY(180deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            font-size: 0.9rem;
+            border: 3px solid #ffb6c1;
+        }
+        
+        /* Bingo cell styles */
+        .bingo-cell {
+            background: white;
+            padding: 15px 5px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        .bingo-cell:hover {
+            transform: scale(1.05);
+            background: #fff0f3;
+        }
+        .bingo-cell.marked {
+            background: #d63384;
+            color: white;
+            text-decoration: line-through;
+        }
+        
+        /* Emoji rain animation */
+        .emoji-rain {
+            position: fixed;
+            top: -10%;
+            font-size: 2rem;
+            animation: rain 3s linear forwards;
+            z-index: 9999;
+            pointer-events: none;
+        }
+        
+        @keyframes rain {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+        
         /* Hover effects */
         #love-letter-btn:hover {
             transform: scale(1.1);
@@ -784,12 +976,6 @@
             transform: scale(1.08);
             box-shadow: 0 12px 28px rgba(214, 51, 132, 0.35);
             border-color: #ffc0cb;
-        }
-        
-        /* Wiggle animation for gift box */
-        @keyframes wiggle {
-            0%, 100% { transform: rotate(-5deg); }
-            50% { transform: rotate(5deg); }
         }
     </style>
 </body>
