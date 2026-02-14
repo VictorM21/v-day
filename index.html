@@ -66,20 +66,308 @@
             localStorage.setItem('musicPlaying', !music.paused);
         });
 
-        // ===== ISIMI'S BEAUTIFUL NAMES =====
+                // ===== ISIMI'S BEAUTIFUL NAMES - NIGERIAN FIRST! 🇳🇬❤️ =====
         const isimiNames = [
-            "Isimi Mi",         // My Rest
-            "Simileoluwa",     // Full name
-            "Simi",            // Short form
-            "Ife mi",          // My love
-            "Oluwabunmi",      // Gift of God
-            "Ore ofe mi",      // My special friend
-            "Mommy",           // ❤️
-            "Princess",
-            "Okan mi",         // My heart
-            "Ayomitide",       // My joy has come
-            "Oluwadarasimi",   // God is good to me
-            "Oluwafunmilayo"   // God gives me joy ✨
+            // ===== NIGERIAN LANGUAGES - HER ROOTS FIRST! 🇳🇬 =====
+            
+            // Yoruba (Western Nigeria) 
+            "Isimi Mi",           // My Rest
+            "Simileoluwa",        // Full name
+            "Simi",               // Short form
+            "Ife mi",             // My love
+            "Ore ofe mi",         // My special friend
+            "Okan mi",            // My heart
+            "Ayomitide",          // My joy has come
+            "Obidiya",            // The one after her husband's heart ❤️
+            "Omaobidiya",         // A beautiful woman in her husband's heart
+            "Achalugo",           // A regal, majestic woman (like an eagle)
+            "Asampete",           // A beautiful, stunning woman ✨
+            "Akwa Ugo",           // Precious eagle egg
+            "Udara Mmicha",       // Sweet, leakable African star apple
+            
+            // Igbo (Eastern Nigeria)
+            "Ifunanya m",         // My love
+            "Ola m",              // My diamond/jewel
+            "Omasirim",           // My choice
+            "Nkem",               // My own/mine
+            "Obim",               // My heart
+            "Akalaka",            // Precious one
+            "Ure",                // Joy
+            "Ngozi",              // Blessing
+            "Adamma",             // Beautiful girl
+            "Chiamaka",           // God is beautiful
+            "Somto",              // Join me to praise
+            "Kamsiyochukwu",      // Like the way God does
+            
+            // Hausa (Northern Nigeria)
+            "Ina sonki",          // I love you (as name)
+            "Zuciyata",           // My heart
+            "Rayuwata",           // My life
+            "Kyakkyawa",          // Beautiful
+            "Masoyita",           // My beloved
+            
+            // Efik/Ibibio (South-South Nigeria)
+            "Ata edi",            // True love
+            "Esit mi",            // My heart
+            "Mfon",               // Goodness/grace
+            "Idara",              // Joy/happiness
+            "Ubong",              // Glory
+            "Nsikan",             // God's gift
+            "Uduak",              // God's will
+            "Ima",                // Love
+            "Ekaette",            // Father's crown
+            "Nkoyo",              // Heart
+            
+            // Tiv (Central Nigeria)
+            "Ngover",             // Love
+            "U sha u",            // My heart
+            "U tamen u",          // My treasure
+            "Dooshima",           // God's love
+            "Mngusever",          // I love you
+            "Tersoo",             // God's gift
+            "Anyam",              // Joy
+            
+            // Urhobo (Niger Delta)
+            "Oma",                // Heart
+            "Oghene me",          // My God
+            "Omavwovwo",          // Love heart
+            "Ogheneovo",          // God's love
+            "Oghenekevwe",        // God's gift
+            "Ese",                // Thanks/gift
+            
+            // Ijaw (Bayelsa/Rivers)
+            "Ayebatari",          // Blessed child
+            "Tari",               // Love
+            "Tarakiri",           // Love is good
+            "Boma",               // My heart
+            "Kuro",               // Sweet
+            "Kurotamuno",         // Sweet is God
+            "Tamunotonye",        // God is worthy of praise
+            "Tamunoibi",          // God's gift
+            "Ibi",                // Gift
+            "Sotonye",            // God's time
+            
+            // Fulani (Northern Nigeria)
+            "Yidde",              // Love
+            "Mi yidi ma",         // I love you (as name)
+            "Suudu",              // Heart
+            "Jawdi",              // Treasure
+            "Jam",                // Peace
+            "Barka",              // Blessing
+            "Nafu",               // Joy
+            
+            // Nupe (North Central)
+            "Gana",               // Love
+            "Mi gana",            // My love
+            "Egi mi",             // My heart
+            "So mi",              // My treasure
+            "Tsadu",              // Joy
+            "Ndakun",             // Beautiful
+            "Kuso",               // Sweet
+            "Lami",               // Mine
+            
+            // ===== AFRICAN LANGUAGES - SISTER NATIONS 🌍 =====
+            
+            // Swahili (East Africa)
+            "Upendo wangu",       // My love
+            "Mpenzi wangu",       // My beloved
+            "Roho yangu",         // My soul
+            "Pendo",              // Love
+            
+            // Zulu (South Africa)
+            "Sthandwa sami",      // My love
+            "Inhliziyo yami",     // My heart
+            "Mgijimi wami",       // My heartbeat
+            "Isipho sami",        // My gift
+            
+            // Amharic (Ethiopia)
+            "Fikir",              // Love
+            "Wede fikir",         // My love
+            "Libé",               // My heart
+            "Konjo",              // Beautiful
+            
+            // ===== EUROPEAN LANGUAGES OF LOVE 🇪🇺 =====
+            
+            // French - Language of Love 🇫🇷
+            "Mon amour",          // My love
+            "Mon trésor",         // My treasure
+            "Ma chérie",          // My darling
+            "Mon cœur",           // My heart
+            "Ma belle",           // My beautiful
+            
+            // Spanish - Passionate ❤️🇪🇸
+            "Mi amor",            // My love
+            "Mi corazón",         // My heart
+            "Mi vida",            // My life
+            "Mi cielo",           // My sky/heaven
+            "Mi reina",           // My queen
+            
+            // Italian - Musical Romance 🎭
+            "Amore mio",          // My love
+            "Tesoro mio",         // My treasure
+            "Cuore mio",          // My heart
+            "Vita mia",           // My life
+            "Bella",              // Beautiful
+            
+            // Portuguese - Sweet & Warm 🇧🇷
+            "Meu amor",           // My love
+            "Meu tesouro",        // My treasure
+            "Meu coração",        // My heart
+            "Minha vida",         // My life
+            "Querida",            // Darling
+            
+            // German - Deep & Meaningful 🏔️
+            "Meine Liebe",        // My love
+            "Mein Schatz",        // My treasure
+            "Mein Herz",          // My heart
+            "Mein Leben",         // My life
+            "Engel",              // Angel
+            
+            // Irish - Celtic Romance ☘️
+            "Mo chuisle",         // My pulse
+            "Mo grá",             // My love
+            "Mo stór",            // My treasure
+            "Mo chroí",           // My heart
+            
+            // Dutch - Cozy & Sweet 🇳🇱
+            "Mijn liefde",        // My love
+            "Mijn schat",         // My treasure
+            "Mijn hart",          // My heart
+            "Lieverd",            // Sweetheart
+            
+            // Swedish - Cool & Tender 🇸🇪
+            "Min älskling",       // My darling
+            "Mitt hjärta",        // My heart
+            "Min skatt",          // My treasure
+            "Sötnos",             // Sweetie
+            
+            // Greek - Ancient Romance 🇬🇷
+            "Agapi mou",          // My love
+            "Kardia mou",         // My heart
+            "Zoi mou",            // My life
+            "Psihi mou",          // My soul
+            
+            // Russian - Deep & Soulful 🇷🇺
+            "Lyubov moya",        // My love
+            "Serdtse moye",       // My heart
+            "Dusha moya",         // My soul
+            "Radost moya",        // My joy
+            
+            // Polish - Deep & Warm 🇵🇱
+            "Moja miłość",        // My love
+            "Moje serce",         // My heart
+            "Kochanie",           // Darling
+            "Skarbie",            // Treasure
+            
+            // Turkish - Romantic & Warm 🇹🇷
+            "Aşkım",              // My love
+            "Canım",              // My soul/my life
+            "Bir tanem",          // My only one
+            "Güzelim",            // My beautiful
+            
+            // ===== MIDDLE EASTERN & ASIAN LANGUAGES 🌏 =====
+            
+            // Hebrew - Ancient & Deep ✡️
+            "Dara",               // Compassion/Beautiful
+            "Ahava",              // Love
+            "Libi",               // My heart
+            "Neshama",            // Soul
+            
+            // Arabic - Poetic & Sweet 🕌
+            "Habibti",            // My love (female)
+            "Ya amar",            // My moon
+            "Roohi",              // My soul
+            "Albi",               // My heart
+            "Nour",               // Light
+            
+            // Persian (Farsi) - Poetic & Elegant 🇮🇷
+            "Joonam",             // My life/my dear
+            "Azizam",             // My dear
+            "Delbaram",           // My heart stealer
+            "Setareh",            // My star
+            
+            // Hindi - Colorful & Sweet 🇮🇳
+            "Meri jaan",          // My life/my love
+            "Meri zindagi",       // My life
+            "Dil",                // Heart
+            "Sona",               // Gold
+            "Priya",              // Beloved
+            
+            // Japanese - Delicate & Pure 🇯🇵
+            "Aishiteru",          // I love you (as name)
+            "Koibito",            // Lover/beloved
+            "Takarabako",         // Treasure box
+            "Hana",               // Flower
+            "Ai",                 // Love
+            
+            // Chinese - Poetic & Elegant 🇨🇳
+            "Wǒ de ài",           // My love
+            "Bǎobèi",             // Baby/treasure
+            "Tiānshǐ",            // Angel
+            "Qīn'ài de",          // Darling
+            
+            // Korean - K-Drama Romance 🇰🇷
+            "Nae sarang",         // My love
+            "Jagiya",             // Baby/darling
+            "Yeobo",              // Honey
+            "Nae maeum",          // My heart
+            "Gongjunim",          // Princess
+            
+            // Thai - Sweet & Soft 🇹🇭
+            "Chan rak khun",      // I love you (as name)
+            "Dii jai",            // My heart
+            "Khwan",              // Beloved
+            "Nong",               // Younger one
+            "Khun suay",          // Beautiful
+            
+            // Vietnamese - Lyrical & Lovely 🇻🇳
+            "Tình yêu của anh",   // My love
+            "Em yêu",             // Beloved
+            "Bé bỏng",            // Little one
+            "Cục cưng",           // Sweetie pie
+            
+            // Tagalog (Filipino) - Sweet & Warm 🇵🇭
+            "Mahal ko",           // My love
+            "Irog ko",            // My beloved
+            "Sinta",              // Love
+            "Ligaya ko",          // My joy
+            
+            // ===== OCEANIC & INDIGENOUS LANGUAGES 🌺 =====
+            
+            // Hawaiian - Tropical Romance 🌺
+            "Kuʻu ipo",           // My sweetheart
+            "Kuʻu lei",           // My beloved
+            "Nani",               // Beautiful
+            "Pua",                // Flower
+            
+            // Maori - Indigenous Romance 🇳🇿
+            "Taku aroha",         // My love
+            "Taku ngākau",        // My heart
+            "Taku taonga",        // My treasure
+            "Aroha",              // Love
+            
+            // ===== UNIVERSAL ENDEARMENTS - FOR EVERYONE 🌍 =====
+            
+            "My Queen",           // English royalty 👑
+            "My Goddess",         // Divine feminine ✨
+            "My Universe",        // Everything to me 🌌
+            "My Eternity",        // Forever love ⏳
+            "My Sunrise",         // New beginning each day 🌅
+            "My Moon",            // Light in the dark 🌙
+            "My Star",            // Guiding light ⭐
+            "My Rainbow",         // Color after the storm 🌈
+            "My Serendipity",     // Beautiful accident 💫
+            "My Destiny",         // Meant to be 🔮
+            "My Paradise",        // My safe place 🏝️
+            "My Melody",          // Music to my heart 🎵
+            "My Rhythm",          // Beat of my soul 🥁
+            "My Poetry",          // Verses of love 📝
+            "My Story",           // The best chapter 📖
+            "My Today",           // Present gift 🎁
+            "My Tomorrow",        // Future hope 🔆
+            "My Always",          // Forever constant ♾️
+            "My Forever",         // Never-ending 💕
+            "My Everything"       // All I need 🌎
         ];
         
         const randomName = isimiNames[Math.floor(Math.random() * isimiNames.length)];
