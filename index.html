@@ -26,10 +26,9 @@
     </div>
 
     <audio id="bg-music" loop autoplay></audio>
-    
     <button id="music-toggle" onclick="toggleMusic()" title="Toggle music">🔊</button>
 
-    <!-- Mobile tap prompt - playful and fun! -->
+    <!-- Mobile tap prompt -->
     <p id="mobile-tap-prompt" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.8rem; color: white; text-shadow: 2px 2px 10px #d63384; background: rgba(214,51,132,0.9); padding: 20px 40px; border-radius: 60px; z-index: 9999; animation: pulse 1.5s infinite; display: none; white-space: nowrap; box-shadow: 0 10px 30px rgba(214,51,132,0.5); backdrop-filter: blur(5px);">
         ✨ Tap anywhere for a surprise! ✨
     </p>
@@ -48,8 +47,6 @@
         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
         if (isMobile) {
             document.getElementById('mobile-tap-prompt').style.display = 'block';
-            
-            // Hide it on first tap
             document.addEventListener('touchstart', function() {
                 document.getElementById('mobile-tap-prompt').style.display = 'none';
             }, { once: true });
@@ -69,9 +66,7 @@
         // ===== CHECK IF IT'S A NEW DAY - RESET SONG =====
         const lastVisit = localStorage.getItem('lastVisitDate');
         const today = new Date().toDateString();
-        
         if (lastVisit !== today) {
-            // New day - clear saved song so new one is picked
             localStorage.removeItem('selectedSong');
             localStorage.removeItem('songIndex');
             localStorage.removeItem('songName');
@@ -79,16 +74,15 @@
             console.log("📅 New day - fresh song will be picked!");
         }
 
-        // ===== ISIMI'S BEAUTIFUL NAMES - CURATED COLLECTION 🇳🇬❤️ =====
+        // ===== ISIMI MI'S BEAUTIFUL NAMES - NIGERIAN + ENGLISH ENDEARMENTS ❤️ =====
         const isimiNames = [
-            // ===== YORUBA (Western Nigeria) =====
-            "Isimi Mi",           // My Rest
+            // ===== YORUBA =====
+            "Isimi Mi",           // My Rest (DEFAULT FALLBACK)
             "Simileoluwa",        // Full name
             "Simi",               // Short form
             "Ife mi",             // My love
             "Ore ofe mi",         // My special friend
             "Okan mi",            // My heart
-            "Ayomitide",          // My joy has come
             "Obidiya",            // The one after her husband's heart
             "Omaobidiya",         // A beautiful woman in her husband's heart
             "Achalugo",           // A regal, majestic woman (like an eagle)
@@ -98,7 +92,7 @@
             "Omo Oluwa",          // Child of God
             "Ayoka",              // One who causes joy
             
-            // ===== IGBO (Eastern Nigeria) =====
+            // ===== IGBO =====
             "Ifunanya m",         // My love
             "Ola m",              // My diamond/jewel
             "Omasirim",           // My choice
@@ -107,11 +101,10 @@
             "Akalaka",            // Precious one
             "Ure",                // Joy
             "Adamma",             // Beautiful girl
-            "Chiamaka",           // God is beautiful
             "Somto",              // Join me to praise
             "Kamsiyochukwu",      // Like the way God does
             
-            // ===== HAUSA (Northern Nigeria) =====
+            // ===== HAUSA =====
             "Ina sonki",          // I love you (as name)
             "Zuciyata",           // My heart
             "Rayuwata",           // My life
@@ -120,14 +113,14 @@
             "Rabi",               // Breeze
             "Sa'adatu",           // Happiness
             
-            // ===== EFIK/IBIBIO (South-South Nigeria) =====
+            // ===== EFIK/IBIBIO =====
             "Ata edi",            // True love
             "Esit mi",            // My heart
             "Mfon",               // Goodness/grace
             "Idara",              // Joy/happiness
             "Ima",                // Love
             
-            // ===== TIV (Central Nigeria) =====
+            // ===== TIV =====
             "Ngover",             // Love
             "U sha u",            // My heart
             "U tamen u",          // My treasure
@@ -136,12 +129,12 @@
             "Tersoo",             // God's gift
             "Anyam",              // Joy
             
-            // ===== URHOBO (Niger Delta) =====
+            // ===== URHOBO =====
             "Oma",                // Heart
             "Oghene me",          // My God
             "Omavwovwo",          // Love heart
             
-            // ===== IJAW (Bayelsa/Rivers) =====
+            // ===== IJAW =====
             "Ayebatari",          // Blessed child
             "Tari",               // Love
             "Tarakiri",           // Love is good
@@ -151,7 +144,7 @@
             "Tamunoibi",          // God's gift
             "Sotonye",            // God's time
             
-            // ===== FULANI (Northern Nigeria) =====
+            // ===== FULANI =====
             "Yidde",              // Love
             "Mi yidi ma",         // I love you (as name)
             "Suudu",              // Heart
@@ -160,7 +153,7 @@
             "Barka",              // Blessing
             "Nafu",               // Joy
             
-            // ===== NUPE (North Central) =====
+            // ===== NUPE =====
             "Gana",               // Love
             "Mi gana",            // My love
             "Egi mi",             // My heart
@@ -170,38 +163,43 @@
             "Kuso",               // Sweet
             "Lami",               // Mine
             
-            // ===== FAMOUS INTERNATIONAL PET NAMES (Rare Treats) =====
-            "Mon amour",          // French - My love
-            "Mi amor",            // Spanish - My love
-            "Habibti",            // Arabic - My love (female)
-            "Jagiya",             // Korean - Honey/darling
-            "Amore mio",          // Italian - My love
-            "Mein Schatz",        // German - My treasure
-            "Saranghae",          // Korean - I love you
-            "Je t'aime",          // French - I love you
-            "Ti amo",             // Italian - I love you
-            "Ich liebe dich",     // German - I love you
-            "Te quiero",          // Spanish - I love you (casual)
-            "Te amo",             // Spanish - I love you (deep)
-            "Aishiteru",          // Japanese - I love you
-            "Habibi",             // Arabic - My love
-            "Mahal kita",         // Filipino - I love you
-            "Anh yêu em",         // Vietnamese - I love you
-            "Chan rak khun",      // Thai - I love you
-            "Szeretlek",          // Hungarian - I love you
-            "Kocham cię",         // Polish - I love you
-            "Jag älskar dig",     // Swedish - I love you
-            "Min älskling",       // Swedish - My darling
-            "Mo grá",             // Irish - My love
-            "Mo chuisle",         // Irish - My pulse
-            "Mo stór",            // Irish - My treasure
-            "Aşkım",              // Turkish - My love
-            "Canım",              // Turkish - My soul/my life
-            "Bir tanem",          // Turkish - My only one
-            "Meri jaan",          // Hindi - My life/my love
-            "Priya",              // Hindi - Beloved
-            "Dil"                 // Hindi - Heart
-            // ⚠️ REMOVED THE EXTRA COMMA HERE!
+            // ===== NEW ENGLISH ENDEARMENTS =====
+            "My baby",            // English
+            "Wifeeeeyyyy",        // Playful
+            "My love",            // English
+            "My heart",           // English
+            
+            // ===== INTERNATIONAL PET NAMES =====
+            "Mon amour",          // French
+            "Mi amor",            // Spanish
+            "Habibti",            // Arabic
+            "Jagiya",             // Korean
+            "Amore mio",          // Italian
+            "Mein Schatz",        // German
+            "Saranghae",          // Korean
+            "Je t'aime",          // French
+            "Ti amo",             // Italian
+            "Ich liebe dich",     // German
+            "Te quiero",          // Spanish
+            "Te amo",             // Spanish
+            "Aishiteru",          // Japanese
+            "Habibi",             // Arabic
+            "Mahal kita",         // Filipino
+            "Anh yêu em",         // Vietnamese
+            "Chan rak khun",      // Thai
+            "Szeretlek",          // Hungarian
+            "Kocham cię",         // Polish
+            "Jag älskar dig",     // Swedish
+            "Min älskling",       // Swedish
+            "Mo grá",             // Irish
+            "Mo chuisle",         // Irish
+            "Mo stór",            // Irish
+            "Aşkım",              // Turkish
+            "Canım",              // Turkish
+            "Bir tanem",          // Turkish
+            "Meri jaan",          // Hindi
+            "Priya",              // Hindi
+            "Dil"                 // Hindi
         ];
 
         const randomName = isimiNames[Math.floor(Math.random() * isimiNames.length)];
