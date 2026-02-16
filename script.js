@@ -45,12 +45,12 @@ const noBtn = document.getElementById('no-btn');
 const music = document.getElementById('bg-music');
 const musicToggle = document.getElementById('music-toggle');
 
-// Check if elements exist before proceeding
+// Check if elements exist
 if (!catGif || !yesBtn || !noBtn || !music || !musicToggle) {
     console.error("Required elements not found!");
 }
 
-// ===== RANDOM SONG SELECTION =====
+// ===== PLAYLIST SETUP =====
 const songs = [
     "music/Mannywellz-Looking-For-God.mp3",
     "music/Tchella-Ife-In-Love.mp3",
@@ -63,55 +63,71 @@ const songNames = [
     "Mannywellz - Magic Take It Easy"
 ];
 
-// Check if a song was already selected today
+// Function to play next song in playlist
+function playNextSong() {
+    if (!music) return;
+    
+    // Get current index from localStorage or default to 0
+    let currentIndex = parseInt(localStorage.getItem('songIndex')) || 0;
+    
+    // Increment index, loop back to 0 if at end
+    let nextIndex = (currentIndex + 1) % songs.length;
+    
+    // Update source
+    const nextSong = songs[nextIndex];
+    music.src = nextSong + '?v=' + new Date().getTime();
+    music.load();
+    
+    // Save new index
+    localStorage.setItem('selectedSong', nextSong);
+    localStorage.setItem('songIndex', nextIndex);
+    localStorage.setItem('songName', songNames[nextIndex]);
+    
+    // Play if music was playing before
+    if (!music.paused) {
+        music.play().catch(() => {});
+    }
+    
+    console.log("🎵 Now playing: " + songNames[nextIndex]);
+}
+
+// Initialize playlist – random start or continue
 let selectedSong = localStorage.getItem('selectedSong');
 let randomIndex;
 
 if (selectedSong) {
-    // Use the previously selected song
+    // Continue from where we left off
     randomIndex = parseInt(localStorage.getItem('songIndex'));
-    console.log("🎵 Continuing with previous song: " + songNames[randomIndex]);
+    console.log("🎵 Continuing with: " + songNames[randomIndex]);
 } else {
-    // Pick a new random song
+    // First visit: pick random start
     randomIndex = Math.floor(Math.random() * songs.length);
     selectedSong = songs[randomIndex];
     
-    // Save it for the next page and future visits today
     localStorage.setItem('selectedSong', selectedSong);
     localStorage.setItem('songIndex', randomIndex);
     localStorage.setItem('songName', songNames[randomIndex]);
-    console.log("🎵 Today's new song: " + songNames[randomIndex]);
+    console.log("🎵 Starting with: " + songNames[randomIndex]);
 }
 
-// Clear any existing sources and set the new one
-if (music) {
-    while (music.firstChild) {
-        music.removeChild(music.firstChild);
-    }
+// Set the source
+music.src = selectedSong + '?v=' + new Date().getTime();
+music.load();
 
-    // Create new source element with cache-busting parameter
-    const source = document.createElement('source');
-    source.src = selectedSong + '?v=' + new Date().getTime(); // Cache buster!
-    source.type = 'audio/mpeg';
-    music.appendChild(source);
-
-    // Reload the audio
-    music.load();
-}
+// Add ended event listener to play next song
+music.addEventListener('ended', playNextSong);
 
 // ===== MOBILE-OPTIMIZED MUSIC SETUP =====
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-if (music) {
+function setupAudio() {
     if (isMobile) {
-        // Mobile: Start muted, unmute on first interaction
         music.muted = true;
         music.volume = 0.4;
         music.play().catch(() => {});
         musicPlaying = false;
         if (musicToggle) musicToggle.textContent = '🔇';
         
-        // Unmute on first click/touch
         function enableAudio() {
             if (music) {
                 music.muted = false;
@@ -123,11 +139,9 @@ if (music) {
             document.removeEventListener('click', enableAudio);
             document.removeEventListener('touchstart', enableAudio);
         }
-        
         document.addEventListener('click', enableAudio, { once: true });
         document.addEventListener('touchstart', enableAudio, { once: true });
     } else {
-        // Desktop: Try normal autoplay
         music.muted = false;
         music.volume = 0.4;
         music.play().then(() => {
@@ -136,7 +150,6 @@ if (music) {
         }).catch(() => {
             musicPlaying = false;
             if (musicToggle) musicToggle.textContent = '🔇';
-            // Play on first click
             document.addEventListener('click', function playOnFirstClick() {
                 music.play().then(() => {
                     musicPlaying = true;
@@ -148,15 +161,14 @@ if (music) {
     }
 }
 
+setupAudio();
+
 // ===== TOGGLE MUSIC FUNCTION =====
 window.toggleMusic = function() {
     if (!music) return;
     
     if (music.paused) {
-        // If muted, unmute first
-        if (music.muted) {
-            music.muted = false;
-        }
+        if (music.muted) music.muted = false;
         music.play().then(() => {
             musicPlaying = true;
             if (musicToggle) musicToggle.textContent = '🔊';
@@ -170,6 +182,15 @@ window.toggleMusic = function() {
     }
 };
 
+// Save music state before leaving
+window.addEventListener('beforeunload', function() {
+    if (music) {
+        localStorage.setItem('musicTime', music.currentTime);
+        localStorage.setItem('musicPlaying', musicPlaying);
+    }
+});
+
+// ===== BUTTON HANDLERS =====
 window.handleYesClick = function() {
     if (!runawayEnabled) {
         const msg = yesTeasePokes[Math.min(yesTeasedCount, yesTeasePokes.length - 1)];
