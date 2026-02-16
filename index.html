@@ -202,8 +202,8 @@
             "Dil"                 // Hindi
         ];
 
-        const savedName = localStorage.getItem('isimiName') || "Isimi Mi";   // ← changed 
-        document.getElementById('yes-name').innerText = savedName;
+         const randomName = isimiNames[Math.floor(Math.random() * isimiNames.length)];
+        document.getElementById('her-name').innerText = randomName;
         localStorage.setItem('isimiName', randomName);
         console.log("Mo nifẹ rẹ, " + randomName + "! ❤️");
     </script>
