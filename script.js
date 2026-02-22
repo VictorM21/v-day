@@ -63,7 +63,20 @@ const songNames = [
     "Mannywellz - Magic Take It Easy"
 ];
 
-// Function to play next song in playlist
+// Verify song files exist (optional, removes console errors)
+songs.forEach((song, index) => {
+    fetch(song, { method: 'HEAD' })
+        .then(response => {
+            if (!response.ok) {
+                console.warn(`⚠️ Song ${index + 1} may not exist: ${song}`);
+            } else {
+                console.log(`✅ Song ${index + 1} found: ${song}`);
+            }
+        })
+        .catch(() => console.warn(`⚠️ Cannot verify song: ${song}`));
+});
+
+// Function to play next song in playlist - FIXED VERSION
 function playNextSong() {
     if (!music) return;
     
@@ -83,12 +96,19 @@ function playNextSong() {
     localStorage.setItem('songIndex', nextIndex);
     localStorage.setItem('songName', songNames[nextIndex]);
     
-    // Play if music was playing before
-    if (!music.paused) {
-        music.play().catch(() => {});
+    // Use musicPlaying variable to determine if we should auto-play
+    if (musicPlaying) {
+        music.play().then(() => {
+            console.log("✅ Auto-playing next song: " + songNames[nextIndex]);
+        }).catch(err => {
+            console.log("❌ Could not auto-play next song:", err);
+            // If auto-play fails, we need user interaction again
+            musicPlaying = false;
+            if (musicToggle) musicToggle.textContent = '🔇';
+        });
+    } else {
+        console.log("🎵 Next song loaded (paused): " + songNames[nextIndex]);
     }
-    
-    console.log("🎵 Now playing: " + songNames[nextIndex]);
 }
 
 // Initialize playlist – random start or continue
@@ -96,9 +116,24 @@ let selectedSong = localStorage.getItem('selectedSong');
 let randomIndex;
 
 if (selectedSong) {
-    // Continue from where we left off
-    randomIndex = parseInt(localStorage.getItem('songIndex'));
-    console.log("🎵 Continuing with: " + songNames[randomIndex]);
+    // Validate that the saved song exists in our list
+    const validSong = songs.includes(selectedSong);
+    
+    if (validSong) {
+        // Continue from where we left off
+        randomIndex = parseInt(localStorage.getItem('songIndex'));
+        console.log("🎵 Continuing with: " + songNames[randomIndex]);
+    } else {
+        // Invalid saved song, pick new random
+        console.warn("⚠️ Invalid saved song, picking new random");
+        randomIndex = Math.floor(Math.random() * songs.length);
+        selectedSong = songs[randomIndex];
+        
+        localStorage.setItem('selectedSong', selectedSong);
+        localStorage.setItem('songIndex', randomIndex);
+        localStorage.setItem('songName', songNames[randomIndex]);
+        console.log("🎵 New random song: " + songNames[randomIndex]);
+    }
 } else {
     // First visit: pick random start
     randomIndex = Math.floor(Math.random() * songs.length);
@@ -122,9 +157,14 @@ const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
 function setupAudio() {
     if (isMobile) {
+        // Mobile: Start muted, unmute on first interaction
         music.muted = true;
         music.volume = 0.4;
-        music.play().catch(() => {});
+        music.play().then(() => {
+            console.log("✅ Mobile audio initialized (muted)");
+        }).catch(err => {
+            console.log("❌ Mobile audio init failed:", err);
+        });
         musicPlaying = false;
         if (musicToggle) musicToggle.textContent = '🔇';
         
@@ -134,7 +174,12 @@ function setupAudio() {
                 music.play().then(() => {
                     musicPlaying = true;
                     if (musicToggle) musicToggle.textContent = '🔊';
-                }).catch(() => {});
+                    console.log("✅ Mobile audio unmuted and playing");
+                }).catch(err => {
+                    console.log("❌ Mobile audio play failed:", err);
+                    // Fallback: try again with user interaction
+                    alert('🎵 Tap once more to play music');
+                });
             }
             document.removeEventListener('click', enableAudio);
             document.removeEventListener('touchstart', enableAudio);
@@ -142,19 +187,26 @@ function setupAudio() {
         document.addEventListener('click', enableAudio, { once: true });
         document.addEventListener('touchstart', enableAudio, { once: true });
     } else {
+        // Desktop: Try normal autoplay
         music.muted = false;
         music.volume = 0.4;
         music.play().then(() => {
             musicPlaying = true;
             if (musicToggle) musicToggle.textContent = '🔊';
+            console.log("✅ Desktop audio playing");
         }).catch(() => {
             musicPlaying = false;
             if (musicToggle) musicToggle.textContent = '🔇';
+            console.log("ℹ️ Desktop autoplay blocked, waiting for click");
+            // Play on first click
             document.addEventListener('click', function playOnFirstClick() {
                 music.play().then(() => {
                     musicPlaying = true;
                     if (musicToggle) musicToggle.textContent = '🔊';
-                }).catch(() => {});
+                    console.log("✅ Desktop audio started on click");
+                }).catch(err => {
+                    console.log("❌ Desktop audio failed:", err);
+                });
                 document.removeEventListener('click', playOnFirstClick);
             }, { once: true });
         });
@@ -168,10 +220,14 @@ window.toggleMusic = function() {
     if (!music) return;
     
     if (music.paused) {
-        if (music.muted) music.muted = false;
+        // If muted, unmute first
+        if (music.muted) {
+            music.muted = false;
+        }
         music.play().then(() => {
             musicPlaying = true;
             if (musicToggle) musicToggle.textContent = '🔊';
+            console.log("✅ Music playing (toggled on)");
         }).catch(() => {
             alert('🎵 Click anywhere on the page first to enable music!');
         });
@@ -179,6 +235,7 @@ window.toggleMusic = function() {
         music.pause();
         musicPlaying = false;
         if (musicToggle) musicToggle.textContent = '🔇';
+        console.log("⏸️ Music paused (toggled off)");
     }
 };
 
@@ -187,6 +244,7 @@ window.addEventListener('beforeunload', function() {
     if (music) {
         localStorage.setItem('musicTime', music.currentTime);
         localStorage.setItem('musicPlaying', musicPlaying);
+        console.log("💾 Saved music state: time=" + music.currentTime + ", playing=" + musicPlaying);
     }
 });
 
