@@ -1,5 +1,18 @@
 let musicPlaying = false;
 
+// ===== ADD MISSING SONGS ARRAY =====
+const songs = [
+    "music/Mannywellz-Looking-For-God.mp3",
+    "music/Tchella-Ife-In-Love.mp3",
+    "music/Mannywellz-Magic-Take-It-Easy.mp3"
+];
+
+const songNames = [
+    "Mannywellz - Looking For God",
+    "Tchella - Ife In Love",
+    "Mannywellz - Magic Take It Easy"
+];
+
 window.addEventListener('load', () => {
     launchConfetti();
     
@@ -21,19 +34,43 @@ window.addEventListener('load', () => {
     const songName = localStorage.getItem('songName');
     
     if (selectedSong) {
-        // Clear existing sources
-        while (music.firstChild) {
-            music.removeChild(music.firstChild);
+        // Validate that the song exists in our list
+        const validSong = songs.includes(selectedSong);
+        
+        if (validSong) {
+            // Clear existing sources
+            while (music.firstChild) {
+                music.removeChild(music.firstChild);
+            }
+            
+            // Create new source with the saved song
+            const source = document.createElement('source');
+            source.src = selectedSong + '?v=' + new Date().getTime();
+            source.type = 'audio/mpeg';
+            music.appendChild(source);
+            music.load();
+            
+            console.log("🎵 Continuing with: " + songName);
+        } else {
+            console.error("❌ Invalid saved song, using random");
+            // Pick random song as fallback
+            const randomIndex = Math.floor(Math.random() * songs.length);
+            const fallbackSong = songs[randomIndex];
+            
+            while (music.firstChild) {
+                music.removeChild(music.firstChild);
+            }
+            
+            const source = document.createElement('source');
+            source.src = fallbackSong + '?v=' + new Date().getTime();
+            source.type = 'audio/mpeg';
+            music.appendChild(source);
+            music.load();
+            
+            localStorage.setItem('selectedSong', fallbackSong);
+            localStorage.setItem('songIndex', randomIndex);
+            localStorage.setItem('songName', songNames[randomIndex]);
         }
-        
-        // Create new source with the saved song
-        const source = document.createElement('source');
-        source.src = selectedSong + '?v=' + new Date().getTime();
-        source.type = 'audio/mpeg';
-        music.appendChild(source);
-        music.load();
-        
-        console.log("🎵 Continuing with: " + songName);
     }
     
     // Set volume
@@ -51,7 +88,7 @@ window.addEventListener('load', () => {
     if (isMobile) {
         // Mobile: Start muted, unmute on interaction
         music.muted = true;
-        music.play().catch(() => {});
+        music.play().catch(err => console.log("Mobile init:", err));
         musicToggle.textContent = '🔇';
         musicPlaying = false;
         
@@ -63,7 +100,10 @@ window.addEventListener('load', () => {
                 music.play().then(() => {
                     musicPlaying = true;
                     if (musicToggle) musicToggle.textContent = '🔊';
-                }).catch(() => {});
+                    console.log("✅ Mobile audio playing");
+                }).catch(err => {
+                    console.log("❌ Mobile play failed:", err);
+                });
                 document.removeEventListener('click', enableAudio);
                 document.removeEventListener('touchstart', enableAudio);
             }
@@ -77,6 +117,7 @@ window.addEventListener('load', () => {
             music.play().then(() => {
                 musicPlaying = true;
                 if (musicToggle) musicToggle.textContent = '🔊';
+                console.log("✅ Desktop audio playing");
             }).catch(() => {
                 musicPlaying = false;
                 if (musicToggle) musicToggle.textContent = '🔇';
@@ -152,13 +193,15 @@ window.toggleMusic = function() {
         music.play().then(() => {
             musicPlaying = true;
             musicToggle.textContent = '🔊';
+            console.log("✅ Music playing");
         }).catch((error) => {
-            console.error("Playback failed:", error);
+            console.error("❌ Playback failed:", error);
             alert('🎵 Click the page first to enable music!');
         });
     } else {
         music.pause();
         musicPlaying = false;
         musicToggle.textContent = '🔇';
+        console.log("⏸️ Music paused");
     }
 };
