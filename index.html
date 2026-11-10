@@ -4,208 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Will you be my Valentine? 💕</title>
+    <meta name="description" content="A little Valentine's question, just for you. 💕">
+    <meta name="theme-color" content="#FFD9E6">
+    <meta property="og:title" content="Will you be my Valentine? 💕">
+    <meta property="og:description" content="A little Valentine's question, just for you.">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%95%3C/text%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="hearts-bg"></div>
+    <div class="hearts-bg" aria-hidden="true"></div>
 
-    <div class="container">
-        <h1 id="valentine-question">Will you be my Valentine, <span id="her-name"></span>? 💕</h1>
+    <main class="container">
+        <h1 id="valentine-question">Will you be my Valentine, <span id="her-name">Isimi Mi</span>? 💕</h1>
 
         <div class="gif-container">
-            <img id="cat-gif" src="https://media.tenor.com/EBV7OT7ACfwAAAAj/u-u-qua-qua-u-quaa.gif" alt="cute character">
+            <img id="cat-gif" src="https://media.tenor.com/EBV7OT7ACfwAAAAj/u-u-qua-qua-u-quaa.gif" alt="A cute character looking at you hopefully" width="200" height="200">
+            <span id="gif-fallback" class="gif-fallback" role="img" aria-label="A cute reaction" hidden>🥰</span>
         </div>
 
         <div class="buttons">
-            <button id="yes-btn" onclick="handleYesClick()">Yes</button>
-            <button id="no-btn" onclick="handleNoClick()">No</button>
+            <button type="button" id="yes-btn">Yes</button>
+            <button type="button" id="no-btn">No</button>
         </div>
-        <div id="tease-toast"></div>
-    </div>
+        <div id="tease-toast" role="status" aria-live="polite"></div>
+    </main>
 
-    <audio id="bg-music" loop autoplay></audio>
-    <button id="music-toggle" onclick="toggleMusic()" title="Toggle music">🔊</button>
+    <noscript>
+        <p class="noscript">This page needs JavaScript to work its magic. Please turn it on 💕</p>
+    </noscript>
 
-    <!-- Mobile tap prompt -->
-    <p id="mobile-tap-prompt" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 1.8rem; color: white; text-shadow: 2px 2px 10px #d63384; background: rgba(214,51,132,0.9); padding: 20px 40px; border-radius: 60px; z-index: 9999; animation: pulse 1.5s infinite; display: none; white-space: nowrap; box-shadow: 0 10px 30px rgba(214,51,132,0.5); backdrop-filter: blur(5px);">
-        ✨ Tap anywhere for a surprise! ✨
-    </p>
+    <audio id="bg-music" preload="auto"></audio>
+    <button type="button" id="music-toggle" aria-label="Pause music" aria-pressed="false" title="Pause music">🔊</button>
 
-    <style>
-        @keyframes pulse {
-            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.9; }
-            100% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
-        }
-    </style>
+    <!-- Only shown on touch screens when the browser blocked autoplay -->
+    <p id="mobile-tap-prompt" class="tap-prompt">✨ Tap anywhere for a surprise! ✨</p>
 
-    <script src="script.js"></script>
-
-    <script>
-        // Show tap prompt ONLY on mobile
-        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-        if (isMobile) {
-            document.getElementById('mobile-tap-prompt').style.display = 'block';
-            document.addEventListener('touchstart', function() {
-                document.getElementById('mobile-tap-prompt').style.display = 'none';
-            }, { once: true });
-        }
-    </script>
-    
-    <script>
-        // ===== MUSIC STATE SAVING =====
-        window.addEventListener('beforeunload', function() {
-            const music = document.getElementById('bg-music');
-            if (music) {
-                localStorage.setItem('musicTime', music.currentTime);
-                localStorage.setItem('musicPlaying', !music.paused);
-            }
-        });
-
-        // ===== CHECK IF IT'S A NEW DAY - RESET SONG =====
-        const lastVisit = localStorage.getItem('lastVisitDate');
-        const today = new Date().toDateString();
-        if (lastVisit !== today) {
-            localStorage.removeItem('selectedSong');
-            localStorage.removeItem('songIndex');
-            localStorage.removeItem('songName');
-            localStorage.setItem('lastVisitDate', today);
-            console.log("📅 New day - fresh song will be picked!");
-        }
-
-        // ===== ISIMI MI'S BEAUTIFUL NAMES - NIGERIAN + ENGLISH ENDEARMENTS ❤️ =====
-        const isimiNames = [
-            // ===== YORUBA =====
-            "Isimi Mi",           // My Rest (DEFAULT FALLBACK)
-            "Simileoluwa",        // Full name
-            "Simi",               // Short form
-            "Ife mi",             // My love
-            "Ore ofe mi",         // My special friend
-            "Okan mi",            // My heart
-            "Obidiya",            // The one after her husband's heart
-            "Omaobidiya",         // A beautiful woman in her husband's heart
-            "Achalugo",           // A regal, majestic woman (like an eagle)
-            "Asampete",           // A beautiful, stunning woman ✨
-            "Akwa Ugo",           // Precious eagle egg
-            "Udara Mmicha",       // Sweet, leakable African star apple
-            "Omo Oluwa",          // Child of God
-            "Ayoka",              // One who causes joy
-            
-            // ===== IGBO =====
-            "Ifunanya m",         // My love
-            "Ola m",              // My diamond/jewel
-            "Omasirim",           // My choice
-            "Nkem",               // My own/mine
-            "Obim",               // My heart
-            "Akalaka",            // Precious one
-            "Ure",                // Joy
-            "Adamma",             // Beautiful girl
-            "Somto",              // Join me to praise
-            "Kamsiyochukwu",      // Like the way God does
-            
-            // ===== HAUSA =====
-            "Ina sonki",          // I love you (as name)
-            "Zuciyata",           // My heart
-            "Rayuwata",           // My life
-            "Kyakkyawa",          // Beautiful
-            "Masoyita",           // My beloved
-            "Rabi",               // Breeze
-            "Sa'adatu",           // Happiness
-            
-            // ===== EFIK/IBIBIO =====
-            "Ata edi",            // True love
-            "Esit mi",            // My heart
-            "Mfon",               // Goodness/grace
-            "Idara",              // Joy/happiness
-            "Ima",                // Love
-            
-            // ===== TIV =====
-            "Ngover",             // Love
-            "U sha u",            // My heart
-            "U tamen u",          // My treasure
-            "Dooshima",           // God's love
-            "Mngusever",          // I love you
-            "Tersoo",             // God's gift
-            "Anyam",              // Joy
-            
-            // ===== URHOBO =====
-            "Oma",                // Heart
-            "Oghene me",          // My God
-            "Omavwovwo",          // Love heart
-            
-            // ===== IJAW =====
-            "Ayebatari",          // Blessed child
-            "Tari",               // Love
-            "Tarakiri",           // Love is good
-            "Boma",               // My heart
-            "Kuro",               // Sweet
-            "Kurotamuno",         // Sweet is God
-            "Tamunoibi",          // God's gift
-            "Sotonye",            // God's time
-            
-            // ===== FULANI =====
-            "Yidde",              // Love
-            "Mi yidi ma",         // I love you (as name)
-            "Suudu",              // Heart
-            "Jawdi",              // Treasure
-            "Jam",                // Peace
-            "Barka",              // Blessing
-            "Nafu",               // Joy
-            
-            // ===== NUPE =====
-            "Gana",               // Love
-            "Mi gana",            // My love
-            "Egi mi",             // My heart
-            "So mi",              // My treasure
-            "Tsadu",              // Joy
-            "Ndakun",             // Beautiful
-            "Kuso",               // Sweet
-            "Lami",               // Mine
-            
-            // ===== NEW ENGLISH ENDEARMENTS =====
-            "My baby",            // English
-            "Wifeeeeyyyy",        // Playful
-            "My love",            // English
-            "My heart",           // English
-            
-            // ===== INTERNATIONAL PET NAMES =====
-            "Mon amour",          // French
-            "Mi amor",            // Spanish
-            "Habibti",            // Arabic
-            "Jagiya",             // Korean
-            "Amore mio",          // Italian
-            "Mein Schatz",        // German
-            "Saranghae",          // Korean
-            "Je t'aime",          // French
-            "Ti amo",             // Italian
-            "Ich liebe dich",     // German
-            "Te quiero",          // Spanish
-            "Te amo",             // Spanish
-            "Aishiteru",          // Japanese
-            "Habibi",             // Arabic
-            "Mahal kita",         // Filipino
-            "Anh yêu em",         // Vietnamese
-            "Chan rak khun",      // Thai
-            "Szeretlek",          // Hungarian
-            "Kocham cię",         // Polish
-            "Jag älskar dig",     // Swedish
-            "Min älskling",       // Swedish
-            "Mo grá",             // Irish
-            "Mo chuisle",         // Irish
-            "Mo stór",            // Irish
-            "Aşkım",              // Turkish
-            "Canım",              // Turkish
-            "Bir tanem",          // Turkish
-            "Meri jaan",          // Hindi
-            "Priya",              // Hindi
-            "Dil"                 // Hindi
-        ];
-
-         const randomName = isimiNames[Math.floor(Math.random() * isimiNames.length)];
-        document.getElementById('her-name').innerText = randomName;
-        localStorage.setItem('isimiName', randomName);
-        console.log("Mo nifẹ rẹ, " + randomName + "! ❤️");
-    </script>
+    <script src="config.js" defer></script>
+    <script src="common.js" defer></script>
+    <script src="music.js" defer></script>
+    <script src="script.js" defer></script>
 </body>
 </html>

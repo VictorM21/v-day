@@ -1,106 +1,69 @@
-# Valentine's Day Interactive Page
+# Valentine's Day Interactive Page 💕
 
-A fun, interactive Valentine's Day page where the "Yes" button grows bigger every time they click "No" — with falling hearts, cute GIFs, music, and playful toast messages. Built with pure HTML, CSS, and JavaScript.
+A small, personal Valentine's page built with plain HTML, CSS and JavaScript — no build step, no dependencies to install.
 
-**Live demo:**(https://github.com/VictorM21/v-day) ([https://victorm21.github.io/v-day/])
+**Live demo:** https://victorm21.github.io/v-day/
 
+## How it works
 
----
+1. **`index.html`** asks the question. Every time she clicks **No**, the **Yes** button grows, the GIF gets sadder and the *No* button says something new. After a few clicks *No* starts running away, and only then does **Yes** take her to the celebration.
+2. **`yes.html`** is the celebration: confetti, photos, flip-card memories, countdown, love meter, fortune teller, bingo, a love letter, a gift box, and more.
+3. A playlist plays throughout. A random song is picked on the first visit of each day and carries over from page one to page two without restarting.
 
-## Want to Use This to Impress Your GF/Wife?
+## Make it yours
 
-You've got three options — pick whatever works for you.
+Most of the personal content is in one file: **`config.js`**.
 
----
+| What | Where |
+|---|---|
+| Pet names shown in the question | `names` in `config.js` |
+| The messages on the *No* button, and the teasing toasts | `noMessages`, `yesTeasePokes` in `config.js` |
+| Songs (files go in `music/`) | `songs` in `config.js` — also drives the playlist on the Yes page |
+| GIFs for each *No* click | `gifStages` in `config.js` |
+| Default reunion date for the countdown | `reunionDefault` in `config.js` |
+| Photos | replace `images/photo1.jpeg`, `photo2.jpeg`, `photo3.jpeg` |
+| Memory dates, love letter, proverbs, love map | `yes.html` |
+| Colours, fonts, animations | `style.css` |
 
-### Option 1: Just Send the Link
+The page remembers a few things in the visitor's own browser (`localStorage`): the song, the theme they picked, the reunion date and timeline dates they set, and cities they add to the love map. Nothing is sent anywhere.
 
-No setup needed. Just send this link:
+## Run it locally
 
+```bash
+python3 -m http.server 8000
+# then open http://localhost:8000
 ```
-https://sahilgogna.github.io/v-day
-```
 
-That's it. Done. You're welcome.
+(Opening the files directly also works, but a local server behaves like the real site.)
 
----
+## Deploy with GitHub Pages
 
-### Option 2: Fork It and Make It Yours
+1. Fork or push this repo to your own GitHub account.
+2. **Settings → Pages → Source: Deploy from a branch → `main` / `(root)` → Save.**
+3. After a minute or two it is live at `https://<your-username>.github.io/v-day/`.
 
-Want your own version you can customize? Follow these steps:
-
-#### 1. Fork the Repo
-- Go to (https://github.com/VictorM21/v-day) ([https://victorm21.github.io/v-day/])
-- Click the **Fork** button in the top-right corner
-- This creates a copy of the repo under your GitHub account
-
-#### 2. Enable GitHub Pages
-- In your forked repo, go to **Settings** (the gear icon tab)
-- In the left sidebar, click **Pages**
-- Under **Source**, select **"Deploy from a branch"**
-- Under **Branch**, select **`main`** and **`/ (root)`**
-- Click **Save**
-
-#### 3. Wait ~2 Minutes
-- GitHub will build and deploy your site
-- Your site will be live at:
-  ```
-  https://yourusername.github.io/v-day
-  ```
-  (Replace `yourusername` with your actual GitHub username)
-
-#### 4. Personalize It
-- Edit `index.html` to change the question, title, or GIF
-- Edit `yes.html` to change the celebration page
-- Edit `script.js` to tweak the toast messages, button behavior, or GIF changes
-- Edit `style.css` to change colors, fonts, or animations
-- Swap out the music file in the `music/` folder with your own song
-
-> **Tip:** You can edit files directly on GitHub by clicking on a file and hitting the pencil (edit) icon. No need to clone anything locally if you just want quick changes.
-
----
-
-### Option 3: Vibe Code Your Own From Scratch
-
-Want something completely unique? Use AI to build it.
-
-#### 1. Open Antigravity
-- Google **"anti gravity google"** or go to [antigravity.dev](https://www.antigravity.dev)
-- It has **Sonnet 4.6** built right in — no need to go anywhere else
-
-#### 2. Describe What You Want
-- Tell it exactly what you're imagining. Some ideas:
-  - Falling hearts animation with a love letter reveal
-  - Interactive story where they choose their adventure
-  - A countdown to Valentine's Day with daily messages
-  - A quiz about your relationship
-  - Whatever your heart desires — literally
-
-#### 3. Get the Code
-- Antigravity will generate the full HTML, CSS, and JavaScript for you
-- Copy the code into files on your computer
-
-#### 4. Deploy It
-- Create a new GitHub repository
-- Push your code to it
-- Enable GitHub Pages the same way as **Option 2** (Settings → Pages → Deploy from branch → main → root → Save)
-- Your custom creation goes live in ~2 minutes
-
----
-
-## Project Structure
+## Project structure
 
 ```
 v-day/
-├── index.html       # Main page — "Will you be my Valentine?"
-├── yes.html         # Celebration page after they say Yes
-├── script.js        # Main page logic (button growth, GIF swaps, toasts)
-├── yes-script.js    # Celebration page animations
-├── style.css        # All the styling and animations
-└── music/           # Background music
+├── index.html       # "Will you be my Valentine?"
+├── yes.html         # Celebration page
+├── config.js        # Names, messages, songs, GIFs, dates — edit this first
+├── common.js        # Small shared helpers (safe storage, toast, date parsing)
+├── music.js         # Playlist / autoplay / hand-off between pages
+├── script.js        # Question page logic
+├── yes-script.js    # Celebration page logic
+├── style.css        # All styling, themes and animations
+├── images/          # Photos for the memory wall
+└── music/           # Songs
 ```
 
----
+## Good to know
+
+- **Autoplay:** browsers block sound until the visitor interacts with the page. If that happens the music starts on their first tap, click or key press; on phones a small "tap anywhere" prompt appears.
+- **Music rights:** the songs in `music/` belong to their artists. If you make a repo public, use music you have the right to share, or link to a streaming service instead.
+- **Privacy:** a public repo (and GitHub Pages site) is visible to anyone, including the photos, names and messages in it. Keep the repo private or use generic content if that matters to you.
+- **Accessibility:** buttons are keyboard-reachable, animations are switched off for visitors who prefer reduced motion, and flip cards work by tap or keyboard as well as hover.
 
 ## License
 
