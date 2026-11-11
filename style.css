@@ -20,6 +20,7 @@ body {
     transition: background-color 0.4s ease;
     font-family: 'Nunito', sans-serif;
     min-height: 100vh;
+    min-height: 100dvh; /* 100vh includes the collapsing address bar on phones */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -615,4 +616,44 @@ input:focus-visible,
 
 @media (max-width: 360px) {
     .secret-btn { bottom: 270px; }
+}
+
+
+/* ===== Mobile polish ===== */
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+/* No 300ms tap delay / double-tap zoom, and no grey flash on tap */
+button, input, a, [role="button"], .flip-card, .bingo-cell {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+body { overscroll-behavior-y: none; }
+
+/* Touch screens: comfortable targets, and no zoom-on-focus in iOS Safari (needs >= 16px) */
+@media (pointer: coarse) {
+    button, .bingo-cell { min-height: 44px; }
+    input { font-size: 16px; min-height: 44px; }
+    .theme-dot { width: 44px; height: 44px; min-height: 0; } /* stays a circle: the blanket button min-height must not stretch it */
+    .theme-switcher { gap: 2px; padding: 4px; }
+    .secret-btn { min-height: 44px; }
+    #music-toggle { width: 48px; height: 48px; }
+}
+
+/* Hover effects stick after a tap on touch screens - only apply them where hover exists */
+@media (hover: none) {
+    #yes-btn:hover, .memory-wall img:hover, .bingo-cell:hover, #music-toggle:hover, .theme-dot:hover {
+        transform: none;
+        box-shadow: inherit;
+    }
+    #love-letter-btn:hover { transform: none !important; }
+}
+
+/* Landscape phones: short viewport, so tighten vertical spacing */
+@media (max-height: 480px) and (orientation: landscape) {
+    .container { padding-top: 16px; padding-bottom: 16px; }
+    h1 { font-size: 1.8rem; margin-bottom: 8px; }
+    .gif-container img, #cat-gif { width: 120px; height: 120px; }
+    .gif-fallback { font-size: 4rem; height: 120px; line-height: 120px; }
+    .yes-container { padding-top: 70px; }
 }
