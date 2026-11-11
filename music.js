@@ -124,15 +124,20 @@
         if (toggleBtn.contains(e.target)) return; // the toggle handles its own click
         if (wantPlaying && audio.paused) tryPlay();
     }
-    ['pointerdown', 'keydown'].forEach(evt => document.addEventListener(evt, onGesture, true));
+    // Only these count as a user activation on every browser: pointerdown/touchstart do not on
+    // touch screens (iOS Safari rejects play() from them), click/touchend/pointerup/keydown do.
+    const GESTURES = ['click', 'touchend', 'pointerup', 'keydown'];
+    GESTURES.forEach(evt => document.addEventListener(evt, onGesture, true));
     audio.addEventListener('playing', () => {
-        ['pointerdown', 'keydown'].forEach(evt => document.removeEventListener(evt, onGesture, true));
+        GESTURES.forEach(evt => document.removeEventListener(evt, onGesture, true));
     }, { once: true });
 
     // Hand the position to the next page. pagehide is reliable on mobile; beforeunload is not.
     window.addEventListener('pagehide', () => {
         store.set(KEYS.time, audio.currentTime);
-        store.set(KEYS.playing, !audio.paused);
+        // Save what the visitor WANTS, not audio.paused: if autoplay was merely blocked the audio is
+        // paused, and saving that made the next page think she had muted it and never start.
+        store.set(KEYS.playing, wantPlaying);
     });
 
     load(index);

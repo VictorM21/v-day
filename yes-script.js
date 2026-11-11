@@ -8,9 +8,12 @@
 
     // Every confetti call goes through here so it is skipped for reduced-motion users
     // and never throws if the CDN script didn't load.
+    const lowPower = window.matchMedia('(pointer: coarse)').matches; // phones: lighter on the GPU/battery
     function burst(opts) {
         if (typeof confetti !== 'function') return;
-        confetti(Object.assign({ disableForReducedMotion: true }, opts));
+        const o = Object.assign({ disableForReducedMotion: true }, opts);
+        if (lowPower && o.particleCount) o.particleCount = Math.ceil(o.particleCount * 0.6);
+        confetti(o);
     }
 
     // ----- Name handed over from the question page -----
@@ -154,7 +157,7 @@
 
     // ----- Love meter -----
     window.checkLove = function () {
-        const pct = Math.floor(Math.random() * 11) + 90; // 90-100%
+        const pct = 100; // always a perfect match
         $('loveMeter').style.width = pct + '%';
         const messages = [
             "💕 Perfect Match!", "💗 Soulmates!", "💖 Made for Each Other!", "💘 True Love!",
